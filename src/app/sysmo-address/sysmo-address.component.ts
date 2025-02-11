@@ -1,4 +1,3 @@
-// sysmo-address.component.ts
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray, AbstractControl } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -34,9 +33,9 @@ export class SysmoAddressComponent implements OnInit {
   @Input() showCurrentAddressCheckbox: boolean = false;
   addressForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.addressForm = this.fb.group({
-      addresses: this.fb.array([]),
+  constructor(private formBuilder: FormBuilder) {
+    this.addressForm = this.formBuilder.group({
+      addresses: this.formBuilder.array([]),
     });
   }
 
@@ -53,34 +52,34 @@ export class SysmoAddressComponent implements OnInit {
   private initializeAddresses() {
     const addressesArray = this.addressForm.get('addresses') as FormArray;
     addressesArray.clear();
-    this.addressTypes.forEach(type => {
-      addressesArray.push(this.createAddressGroup(type));
+    this.addressTypes.forEach(addressType => {
+      addressesArray.push(this.createAddressGroup(addressType));
     });
   }
 
-  private createAddressGroup(type: AddressType): FormGroup {
-    const group: any = {
-      type: [type.id],
-      label: [type.label],
-      required: [type.required],
+  private createAddressGroup(addressType: AddressType): FormGroup {
+    const formGroup: any = {
+      type: [addressType.id],
+      label: [addressType.label],
+      required: [addressType.required],
     };
 
-    this.addressFields.forEach(field => {
-      const validators = [];
-      if (type.required && field.required) {
-        validators.push(Validators.required);
+    this.addressFields.forEach(addressField => {
+      const fieldValidators = [];
+      if (addressType.required && addressField.required) {
+        fieldValidators.push(Validators.required);
       }
-      if (field.validators) {
-        validators.push(...field.validators);
+      if (addressField.validators) {
+        fieldValidators.push(...addressField.validators);
       }
-      group[field.id] = ['', validators.length > 0 ? validators : null];
+      formGroup[addressField.id] = ['', fieldValidators.length > 0 ? fieldValidators : null];
     });
 
-    return this.fb.group(group);
+    return this.formBuilder.group(formGroup);
   }
 
-  getAddressGroup(index: number): FormGroup {
-    return (this.addressForm.get('addresses') as FormArray).at(index) as FormGroup;
+  getAddressGroup(arrayIndex: number): FormGroup {
+    return (this.addressForm.get('addresses') as FormArray).at(arrayIndex) as FormGroup;
   }
 
   getAddresses(): FormArray {
@@ -89,51 +88,51 @@ export class SysmoAddressComponent implements OnInit {
 
   isFieldInvalid(addressControl: AbstractControl, fieldId: string): boolean {
     if (addressControl instanceof FormGroup) {
-      const control = addressControl.get(fieldId);
-      return control ? (control.invalid && (control.dirty || control.touched)) : false;
+      const formControl = addressControl.get(fieldId);
+      return formControl ? (formControl.invalid && (formControl.dirty || formControl.touched)) : false;
     }
     return false;
   }
 
-  getFieldErrorMessage(addressControl: AbstractControl, field: AddressField): string {
+  getFieldErrorMessage(addressControl: AbstractControl, addressField: AddressField): string {
     if (addressControl instanceof FormGroup) {
-      const control = addressControl.get(field.id);
-      if (control && control.errors) {
-        if (control.errors['required']) {
-          return `${field.label} is required`;
+      const formControl = addressControl.get(addressField.id);
+      if (formControl && formControl.errors) {
+        if (formControl.errors['required']) {
+          return `${addressField.label} is required`;
         }
-        if (control.errors['pattern']) {
-          if (field.id === 'pincode') {
+        if (formControl.errors['pattern']) {
+          if (addressField.id === 'pincode') {
             return 'Please enter a valid 6-digit pincode';
           }
-          return `Invalid ${field.label} format`;
+          return `Invalid ${addressField.label} format`;
         }
       }
     }
     return '';
   }
 
-  copyAddress(index: number) {
-    if (index > 0) {
-      const previousAddress = this.getAddressGroup(index - 1).value;
-      const valuesToCopy: any = {};
+  copyAddress(targetIndex: number) {
+    if (targetIndex > 0) {
+      const sourceAddress = this.getAddressGroup(targetIndex - 1).value;
+      const copyValues: any = {};
       
-      this.addressFields.forEach(field => {
-        valuesToCopy[field.id] = previousAddress[field.id];
+      this.addressFields.forEach(addressField => {
+        copyValues[addressField.id] = sourceAddress[addressField.id];
       });
 
-      this.getAddressGroup(index).patchValue(valuesToCopy);
+      this.getAddressGroup(targetIndex).patchValue(copyValues);
     }
   }
 
-  private formatAddressData(value: any) {
+  private formatAddressData(formValue: any) {
     const formattedData: any = {};
-    value.addresses.forEach((address: any) => {
-      const addressData: any = {};
-      this.addressFields.forEach(field => {
-        addressData[field.id] = address[field.id];
+    formValue.addresses.forEach((addressData: any) => {
+      const processedAddress: any = {};
+      this.addressFields.forEach(addressField => {
+        processedAddress[addressField.id] = addressData[addressField.id];
       });
-      formattedData[address.type] = addressData;
+      formattedData[addressData.type] = processedAddress;
     });
     return formattedData;
   }

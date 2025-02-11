@@ -1,31 +1,31 @@
 <form [formGroup]="addressForm">
   <div formArrayName="addresses">
-    <div *ngFor="let address of getAddresses().controls; let i = index" [formGroupName]="i">
+    <div *ngFor="let addressControl of getAddresses().controls; let arrayIndex = index" [formGroupName]="arrayIndex">
       
-      <ion-item *ngIf="i > 0">
-        <ion-checkbox (ionChange)="copyAddress(i)" slot="start"></ion-checkbox>
+      <ion-item *ngIf="arrayIndex > 0">
+        <ion-checkbox (ionChange)="copyAddress(arrayIndex)" slot="start"></ion-checkbox>
         <ion-label>Same as Above</ion-label>
       </ion-item>
 
       <ion-card>
         <ion-card-header>
-          <ion-card-title>{{ address.get('label')?.value }}</ion-card-title>
+          <ion-card-title>{{ addressControl.get('label')?.value }}</ion-card-title>
         </ion-card-header>
 
         <ion-card-content>
-          <ng-container *ngFor="let field of addressFields">
-            <ion-item [class.ion-invalid]="isFieldInvalid(address, field.id)" class="ion-touched">
+          <ng-container *ngFor="let addressField of addressFields">
+            <ion-item [class.ion-invalid]="isFieldInvalid(addressControl, addressField.id)" class="ion-touched">
               <ion-label position="floating">
-                {{ field.label }}{{ address.get('required')?.value && field.required ? ' *' : '' }}
+                {{ addressField.label }}{{ addressControl.get('required')?.value && addressField.required ? ' *' : '' }}
               </ion-label>
-              <ion-input 
-                [formControlName]="field.id"
-                [type]="field.type"
-                [attr.maxlength]="field.maxLength"
-                [required]="address.get('required')?.value && field.required"
+              <ion-input
+                [formControlName]="addressField.id"
+                [type]="addressField.type"
+                [attr.maxlength]="addressField.maxLength"
+                [required]="addressControl.get('required')?.value && addressField.required"
               ></ion-input>
-              <ion-note slot="error" *ngIf="isFieldInvalid(address, field.id)">
-                {{ getFieldErrorMessage(address, field) }}
+              <ion-note slot="error" *ngIf="isFieldInvalid(addressControl, addressField.id)">
+                {{ getFieldErrorMessage(addressControl, addressField) }}
               </ion-note>
             </ion-item>
           </ng-container>
