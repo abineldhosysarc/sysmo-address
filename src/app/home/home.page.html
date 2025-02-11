@@ -1,35 +1,36 @@
-<ion-header class="header-background">
-  <ion-toolbar class="header-toolbar">
+<ion-header class="headerBackground">
+  <ion-toolbar class="headerToolbar">
     <ion-buttons slot="end">
       <ion-button fill="clear" (click)="closePage()">
-        <ion-icon name="close-circle-outline"></ion-icon>      </ion-button>
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title class="header-title">User Details</ion-title>
+    <ion-title class="headerTitle">User Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="content-background">
-  <div class="form-container">
-    <h2 class="form-title">Enter Your Details</h2>
+<ion-content class="contentBackground">
+  <div class="formContainer">
+    <h2 class="formTitle">Enter Your Details</h2>
 
     <form [formGroup]="mainForm" (ngSubmit)="submitForm()">
-      <ion-list class="form-list">
-        <ion-item class="form-item">
+      <ion-list class="formList">
+        <ion-item class="formItem">
           <ion-label position="floating">First Name *</ion-label>
           <ion-input formControlName="firstName" type="text"></ion-input>
         </ion-item>
 
-        <ion-item class="form-item">
+        <ion-item class="formItem">
           <ion-label position="floating">Last Name *</ion-label>
           <ion-input formControlName="lastName" type="text"></ion-input>
         </ion-item>
 
-        <ion-item class="form-item">
+        <ion-item class="formItem">
           <ion-label position="floating">Age *</ion-label>
           <ion-input formControlName="age" type="number" min="0"></ion-input>
         </ion-item>
 
-        <ion-item class="form-item">
+        <ion-item class="formItem">
           <ion-label position="floating">Gender *</ion-label>
           <ion-select formControlName="gender">
             <ion-select-option value="male">Male</ion-select-option>
@@ -38,16 +39,17 @@
           </ion-select>
         </ion-item>
 
-        <ion-item class="form-item address-section">
+        <ion-item class="formItem addressSection">
           <app-sysmo-address
-          [addressTypes]="addressTypes"
-          [addressFields]="addressFields"
-          (addressChange)="handleAddressChange($event)"
-          [showCurrentAddressCheckbox]="showCurrentAddressCheckbox"></app-sysmo-address>
+            [addressTypes]="addressTypes"
+            [addressFields]="addressFields"
+            (addressChange)="handleAddressChange($event)"
+            [showCurrentAddressCheckbox]="showCurrentAddressCheckbox">
+          </app-sysmo-address>
         </ion-item>
       </ion-list>
 
-      <div class="submit-button-container">
+      <div class="submitButtonContainer">
         <ion-button expand="block" shape="round" type="submit" color="danger">
           Submit Form
         </ion-button>

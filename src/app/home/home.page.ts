@@ -1,4 +1,3 @@
-// home.ts
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -38,25 +37,25 @@ export class HomePage {
 
   addressFields: AddressField[] = [
     {
-      id: 'address1',
+      id: 'addressLineOne',
       label: 'Address Line 1',
       required: true,
       type: 'text'
     },
     {
-      id: 'address2',
+      id: 'addressLineTwo',
       label: 'Address Line 2',
       required: false,
       type: 'text'
     },
     {
-      id: 'address3',
+      id: 'addressLineThree',
       label: 'Address Line 3',
       required: false,
       type: 'text'
     },
     {
-      id: 'pincode',
+      id: 'pinCode',
       label: 'Pincode',
       required: true,
       type: 'number',
@@ -69,23 +68,22 @@ export class HomePage {
       required: true,
       type: 'text'
     },
-  
-  {
-    id: 'country',
-    label: 'country',
-    required: true,
-    type: 'text'
-  }
+    {
+      id: 'country',
+      label: 'Country',
+      required: true,
+      type: 'text'
+    }
   ];
 
   showCurrentAddressCheckbox = false;
 
   constructor(
-    private fb: FormBuilder,
-    private alertCtrl: AlertController,
+    private formBuilder: FormBuilder,
+    private alertController: AlertController,
     private router: Router
   ) {
-    this.mainForm = this.fb.group({
+    this.mainForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       age: ['', [Validators.required, Validators.min(0)]],
       lastName: ['', Validators.required],
@@ -123,7 +121,7 @@ export class HomePage {
 
   async submitForm() {
     if (!this.mainForm.valid || !this.validateAddressDetails()) {
-      await this.showAlert('Form Submission Failed','Please fill in all required fields before submitting.');
+      await this.showAlert('Form Submission Failed', 'Please fill in all required fields before submitting.');
       return;
     }
 
@@ -138,12 +136,12 @@ export class HomePage {
     this.router.navigate(['/successful']);
   }
 
-  async showAlert(header: string, message: string): Promise<void> {
-    const alert = await this.alertCtrl.create({
-      header,
-      message,
+  async showAlert(headerText: string, messageText: string): Promise<void> {
+    const alert = await this.alertController.create({
+      header: headerText,
+      message: messageText,
       buttons: ['OK'],
-      cssClass: 'custom-alert'
+      cssClass: 'customAlert'
     });
 
     await alert.present();
