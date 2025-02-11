@@ -1,0 +1,41 @@
+/* Set full-page white background */
+ion-content {
+    --background: white;
+  }
+  
+  /* Center content vertically & horizontally */
+  .content-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+  }
+  
+  /* Success message container */
+  .success-container {
+    max-width: 400px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    // display: flex;
+    position: relative;
+    top: 30%; 
+ }
+  
+  /* Success icon styling */
+  .success-icon {
+    font-size: 4rem;
+    color: rgba(9, 179, 192, 0.793);
+  }
+  .sign-icon{
+    color: aqua;
+  }
+  /* Black success message */
+  .success-text {
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 15px 0;
+  }
+  

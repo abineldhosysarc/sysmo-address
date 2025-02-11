@@ -1,0 +1,34 @@
+ion-content {
+    --background: white;
+  }
+  
+  .content-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+  }
+  
+  .success-container {
+    max-width: 400px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    // display: flex;
+    position: relative;
+  top: 30%; 
+ }
+  
+  .success-icon {
+    font-size: 4rem;
+    color: green;
+  }
+  
+  .success-text {
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 15px 0;
+  }
+  

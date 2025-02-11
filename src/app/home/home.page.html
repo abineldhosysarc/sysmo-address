@@ -1,0 +1,57 @@
+<ion-header class="header-background">
+  <ion-toolbar class="header-toolbar">
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="closePage()">
+        <ion-icon name="close-circle-outline"></ion-icon>      </ion-button>
+    </ion-buttons>
+    <ion-title class="header-title">User Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-background">
+  <div class="form-container">
+    <h2 class="form-title">Enter Your Details</h2>
+
+    <form [formGroup]="mainForm" (ngSubmit)="submitForm()">
+      <ion-list class="form-list">
+        <ion-item class="form-item">
+          <ion-label position="floating">First Name *</ion-label>
+          <ion-input formControlName="firstName" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item class="form-item">
+          <ion-label position="floating">Last Name *</ion-label>
+          <ion-input formControlName="lastName" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item class="form-item">
+          <ion-label position="floating">Age *</ion-label>
+          <ion-input formControlName="age" type="number" min="0"></ion-input>
+        </ion-item>
+
+        <ion-item class="form-item">
+          <ion-label position="floating">Gender *</ion-label>
+          <ion-select formControlName="gender">
+            <ion-select-option value="male">Male</ion-select-option>
+            <ion-select-option value="female">Female</ion-select-option>
+            <ion-select-option value="other">Other</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item class="form-item address-section">
+          <app-sysmo-address
+          [addressTypes]="addressTypes"
+          [addressFields]="addressFields"
+          (addressChange)="handleAddressChange($event)"
+          [showCurrentAddressCheckbox]="showCurrentAddressCheckbox"></app-sysmo-address>
+        </ion-item>
+      </ion-list>
+
+      <div class="submit-button-container">
+        <ion-button expand="block" shape="round" type="submit" color="danger">
+          Submit Form
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>
