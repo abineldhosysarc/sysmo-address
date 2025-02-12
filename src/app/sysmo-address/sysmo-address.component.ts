@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -25,6 +25,7 @@ interface AddressField {
   styleUrls: ['./sysmo-address.component.scss'],
   standalone: true,
   imports: [IonicModule, ReactiveFormsModule, CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SysmoAddressComponent implements OnInit {
   @Input() addressTypes: AddressType[] = [];
@@ -34,7 +35,10 @@ export class SysmoAddressComponent implements OnInit {
   @Input() showCurrentAddressCheckbox: boolean = false;
   addressForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private cdr: ChangeDetectorRef
+  ) {
     this.addressForm = this.formBuilder.group({
       addresses: this.formBuilder.array([]),
     });
@@ -56,6 +60,7 @@ export class SysmoAddressComponent implements OnInit {
     this.addressTypes.forEach(addressType => {
       addressesArray.push(this.createAddressGroup(addressType));
     });
+    this.cdr.markForCheck();
   }
 
   private createAddressGroup(addressType: AddressType): FormGroup {
@@ -97,6 +102,7 @@ export class SysmoAddressComponent implements OnInit {
       });
 
       this.getAddressGroup(targetIndex).patchValue(copyValues);
+      this.cdr.markForCheck();
     }
   }
 

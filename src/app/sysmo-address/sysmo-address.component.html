@@ -32,7 +32,7 @@
                 <ion-input *ngSwitchDefault
                   [formControlName]="addressField.id"
                   [type]="addressField.type"
-                  [attr.maxlength]="addressField.maxLength"
+                  [attr.maxLength]="addressField.maxLength"
                   (keypress)="addressField.id === 'pinCode' ? restrictPinCodeInput($event) : true">
                 </ion-input>
               </ng-container>

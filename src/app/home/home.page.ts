@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -24,6 +24,7 @@ interface AddressField {
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomePage {
   mainForm: FormGroup;
@@ -107,7 +108,8 @@ export class HomePage {
   constructor(
     private formBuilder: FormBuilder,
     private alertController: AlertController,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.mainForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -117,6 +119,9 @@ export class HomePage {
     });
 
     this.initializeAddressTypes();
+    this.mainForm.valueChanges.subscribe(() => {
+      this.cdr.markForCheck();
+    });
   }
 
   private initializeAddressTypes() {
@@ -148,6 +153,7 @@ export class HomePage {
   async submitForm() {
     if (!this.mainForm.valid || !this.validateAddressDetails()) {
       await this.showAlert('Form Submission Failed', 'Please fill in all required fields before submitting.');
+      this.cdr.markForCheck();
       return;
     }
 
@@ -181,7 +187,7 @@ export class HomePage {
   ionViewWillLeave() {
     this.mainForm.reset();
     this.addressDetails = null;
+    this.cdr.markForCheck();
     console.log('Form cleared on page leave');
   }
-
 }
