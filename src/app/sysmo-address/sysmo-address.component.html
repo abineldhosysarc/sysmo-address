@@ -8,16 +8,16 @@
       </ion-segment>
     </div>
 
-    <div *ngFor="let addressControl of getAddresses().controls; let arrayIndex = index" 
-         [formGroupName]="arrayIndex" 
+    <div *ngFor="let addressControl of getAddresses().controls; let arrayIndex = index"
+         [formGroupName]="arrayIndex"
          [hidden]="addressControl.get('type')?.value !== selectedSegment">
-      
+
       <ion-item *ngIf="arrayIndex > 0" lines="none" class="copy-address-item">
-        <ion-checkbox (ionChange)="copyAddress(arrayIndex)" color="danger" slot="start"></ion-checkbox>
+        <ion-checkbox (ionChange)="copyAddress(arrayIndex, $event)" color="danger" slot="start"></ion-checkbox>
         <ion-label>Same as Before</ion-label>
       </ion-item>
 
-      <ion-card>
+      <ion-card [class.read-only]="isReadOnly(arrayIndex)">
         <ion-card-content>
           <ng-container *ngFor="let addressField of addressFields">
             <ion-item  class="ion-touched">
@@ -25,10 +25,11 @@
                 {{ addressField.label }}
                 <span *ngIf="addressField.required" class="required-marker">*</span>
               </ion-label>
-              
+
               <ng-container [ngSwitch]="addressField.type">
                 <ion-select *ngSwitchCase="'select'"
-                  [formControlName]="addressField.id">
+                  [formControlName]="addressField.id"
+                  [disabled]="isReadOnly(arrayIndex)">
                   <ion-select-option *ngFor="let option of addressField.options" [value]="option">
                     {{option}}
                   </ion-select-option>
@@ -37,6 +38,7 @@
                   [formControlName]="addressField.id"
                   [type]="addressField.type"
                   [attr.maxLength]="addressField.maxLength"
+                  [readonly]="isReadOnly(arrayIndex)"
                   (keypress)="addressField.id === 'pinCode' ? restrictPinCodeInput($event) : true">
                 </ion-input>
               </ng-container>

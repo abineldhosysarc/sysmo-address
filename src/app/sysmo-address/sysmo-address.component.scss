@@ -28,3 +28,18 @@
   }
 }
 
+.read-only {
+  ion-item {
+    --background: var(--ion-color-light);
+    opacity: 0.8;
+    
+    ion-input, ion-select {
+      --opacity: 0.8;
+      pointer-events: none;
+    }
+  }
+}
+
+ion-card.read-only {
+  background: var(--ion-color-light);
+}

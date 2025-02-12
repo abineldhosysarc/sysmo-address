@@ -35,6 +35,7 @@ export class SysmoAddressComponent implements OnInit {
   @Input() showCurrentAddressCheckbox: boolean = false;
   addressForm: FormGroup;
   selectedSegment: string;
+  readOnlyStates: boolean[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,6 +50,7 @@ export class SysmoAddressComponent implements OnInit {
   ngOnInit() {
     this.initializeAddresses();
     this.selectedSegment = this.addressTypes[0]?.id || '';
+    this.readOnlyStates = new Array(this.addressTypes.length).fill(false);
 
     this.addressForm.valueChanges.subscribe(value => {
       if (this.addressForm.valid) {
@@ -100,18 +102,24 @@ export class SysmoAddressComponent implements OnInit {
     return this.addressForm.get('addresses') as FormArray;
   }
 
-  copyAddress(targetIndex: number) {
-    if (targetIndex > 0) {
-      const sourceAddress = this.getAddressGroup(targetIndex - 1).value;
+  copyAddress(arrayIndex: number, event: any) {
+    const isChecked = event.detail.checked;
+    this.readOnlyStates[arrayIndex] = isChecked;
+    
+    if (isChecked && arrayIndex > 0) {
+      const sourceAddress = this.getAddressGroup(arrayIndex - 1).value;
       const copyValues: any = {};
       
       this.addressFields.forEach(addressField => {
         copyValues[addressField.id] = sourceAddress[addressField.id];
       });
 
-      this.getAddressGroup(targetIndex).patchValue(copyValues);
-      this.cdr.markForCheck();
+      this.getAddressGroup(arrayIndex).patchValue(copyValues);
     }
+    this.cdr.markForCheck();
+  }
+  isReadOnly(arrayIndex: number): boolean {
+    return this.readOnlyStates[arrayIndex];
   }
 
   private formatAddressData(formValue: any) {
@@ -141,6 +149,7 @@ export class SysmoAddressComponent implements OnInit {
     addressesArray.clear();
     this.initializeAddresses();
     this.selectedSegment = this.addressTypes[0]?.id || '';
+    this.readOnlyStates = new Array(this.addressTypes.length).fill(false);
     this.addressChange.emit(null);
     this.cdr.markForCheck();
   }
