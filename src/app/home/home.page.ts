@@ -59,8 +59,11 @@ export class HomePage {
       label: 'Pincode',
       required: true,
       type: 'number',
-      validators: [Validators.pattern('^[0-9]{6}$')],
-      maxLength: 6
+      validators: [Validators.pattern('^[0-9]{6}$'),Validators.minLength(6),
+        Validators.maxLength(6)
+      ],
+      maxLength: 6,
+      
     },
     {
       id: 'state',

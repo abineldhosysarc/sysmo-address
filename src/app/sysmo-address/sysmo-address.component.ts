@@ -136,4 +136,12 @@ export class SysmoAddressComponent implements OnInit {
     });
     return formattedData;
   }
+  restrictPinCodeInput(event: any): boolean {
+    const currentValue = event.target.value;
+    if (currentValue.length >= 6) {
+      event.preventDefault();
+      return false;
+    }
+    return true;
+  }
 }
