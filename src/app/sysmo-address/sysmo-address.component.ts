@@ -128,4 +128,11 @@ export class SysmoAddressComponent implements OnInit {
   isSelectField(field: AddressField): boolean {
     return field.type === 'select';
   }
+  resetForm() {
+    const addressesArray = this.addressForm.get('addresses') as FormArray;
+    addressesArray.clear();
+    this.initializeAddresses();
+    this.addressChange.emit(null);
+    this.cdr.markForCheck();
+  }
 }

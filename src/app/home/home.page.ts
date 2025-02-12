@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { SysmoAddressComponent } from '../sysmo-address/sysmo-address.component';
 
 interface AddressType {
   id: string;
@@ -29,7 +30,7 @@ interface AddressField {
 export class HomePage {
   mainForm: FormGroup;
   addressDetails: any;
-
+  @ViewChild(SysmoAddressComponent) addressComponent!: SysmoAddressComponent;
   stateOptions: string[] = [
     'Kerala',
     'Karnataka',
@@ -180,6 +181,9 @@ export class HomePage {
   ionViewWillLeave() {
     this.mainForm.reset();
     this.addressDetails = null;
+    if (this.addressComponent) {
+      this.addressComponent.resetForm();
+    }
     this.cdr.markForCheck();
     console.log('Form cleared on page leave');
   }
