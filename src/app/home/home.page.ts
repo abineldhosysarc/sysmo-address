@@ -100,6 +100,23 @@ export class HomePage {
     }
   ];
 
+  errorMessages = {
+    addressLineOne: {
+      required: 'Please provide your address line 1',
+    },
+    pinCode: {
+      required: 'PIN code is mandatory',
+      pattern: 'Please enter a valid 6-digit PIN code',
+      maxlength: 'PIN code must be exactly 6 digits'
+    },
+    state: {
+      required: 'Please select your state from the list'
+    },
+    country: {
+      required: 'Please select your country from the list'
+    }
+  };
+
   showCurrentAddressCheckbox = false;
 
   constructor(

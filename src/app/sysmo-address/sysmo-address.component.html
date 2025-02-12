@@ -43,16 +43,10 @@
                 </ion-input>
               </ng-container>
             </ion-item>
-            <ion-text color="danger" *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.invalid && getAddressGroup(arrayIndex).get(addressField.id)?.touched">
-              <p *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.errors?.['required']">
-                {{ addressField.label }} is required.
-              </p>
-              <p *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.errors?.['maxlength']">
-                Max length exceeded ({{ addressField.maxLength }} characters).
-              </p>
-              <p *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.errors?.['pattern']">
-                Invalid format for {{ addressField.label }}.
-              </p>
+            <ion-text color="danger" 
+                     *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.invalid && 
+                           getAddressGroup(arrayIndex).get(addressField.id)?.touched">
+              <p>{{ getErrorMessage(getAddressGroup(arrayIndex), addressField) }}</p>
             </ion-text>
           </ng-container>
         </ion-card-content>

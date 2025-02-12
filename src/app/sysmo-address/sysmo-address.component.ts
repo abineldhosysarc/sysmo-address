@@ -19,6 +19,13 @@ interface AddressField {
   options?: string[];
 }
 
+interface ErrorMessages {
+  required?: string;
+  maxlength?: string;
+  pattern?: string;
+  [key: string]: string | undefined;
+}
+
 @Component({
   selector: 'sysmo-address',
   templateUrl: './sysmo-address.component.html',
@@ -30,6 +37,7 @@ interface AddressField {
 export class SysmoAddressComponent implements OnInit {
   @Input() addressTypes: AddressType[] = [];
   @Input() addressFields: AddressField[] = [];
+  @Input() errorMessages: { [fieldId: string]: ErrorMessages } = {};
   @Output() addressChange = new EventEmitter<any>();
 
   @Input() showCurrentAddressCheckbox: boolean = false;
@@ -155,14 +163,14 @@ export class SysmoAddressComponent implements OnInit {
   }
   getErrorMessage(formGroup: FormGroup, field: AddressField): string {
     const control = formGroup.get(field.id);
-    if (control?.hasError('required')) {
-      return `${field.label} is required.`;
-    }
-    if (control?.hasError('maxlength')) {
-      return `Max length exceeded (${field.maxLength} characters).`;
-    }
-    if (control?.hasError('pattern')) {
-      return `Invalid format for ${field.label}.`;
+    if (!control?.errors) return '';
+  
+    const fieldErrors = this.errorMessages[field.id] || {};
+    
+    for (const errorKey in control.errors) {
+      if (fieldErrors[errorKey]) {
+        return fieldErrors[errorKey]!;
+      }
     }
     return '';
   }
