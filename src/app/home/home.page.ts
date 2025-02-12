@@ -49,7 +49,11 @@ export class HomePage {
     'Assam',
     'Goa'
   ];
-
+  countryOptions: string[] = [
+    'India',
+    'Canada',
+    'UK'
+  ];
   addressTypes: AddressType[] = [
     { id: 'currentAddress', label: 'Current Address', required: true },
     { id: 'permanentAddress', label: 'Permanent Address', required: true },
@@ -61,18 +65,6 @@ export class HomePage {
     {
       id: 'addressLineOne',
       label: 'Address Line 1',
-      required: true,
-      type: 'text'
-    },
-    {
-      id: 'addressLineTwo',
-      label: 'Address Line 2',
-      required: true,
-      type: 'text'
-    },
-    {
-      id: 'addressLineThree',
-      label: 'Address Line 3',
       required: true,
       type: 'text'
     },
@@ -99,7 +91,8 @@ export class HomePage {
       id: 'country',
       label: 'Country',
       required: true,
-      type: 'text'
+      type: 'select',
+      options: this.countryOptions
     }
   ];
 
