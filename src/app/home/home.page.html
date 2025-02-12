@@ -39,14 +39,14 @@
           </ion-select>
         </ion-item>
 
-        <ion-item class="formItem addressSection">
+        <div class="addressSection">
           <sysmo-address
             [addressTypes]="addressTypes"
             [addressFields]="addressFields"
             (addressChange)="handleAddressChange($event)"
             [showCurrentAddressCheckbox]="showCurrentAddressCheckbox">
           </sysmo-address>
-        </ion-item>
+        </div>
       </ion-list>
 
       <div class="submitButtonContainer">

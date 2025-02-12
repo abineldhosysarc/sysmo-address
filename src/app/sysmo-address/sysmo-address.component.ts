@@ -34,6 +34,7 @@ export class SysmoAddressComponent implements OnInit {
 
   @Input() showCurrentAddressCheckbox: boolean = false;
   addressForm: FormGroup;
+  selectedSegment: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,16 +43,23 @@ export class SysmoAddressComponent implements OnInit {
     this.addressForm = this.formBuilder.group({
       addresses: this.formBuilder.array([]),
     });
+    this.selectedSegment = '';
   }
 
   ngOnInit() {
     this.initializeAddresses();
+    this.selectedSegment = this.addressTypes[0]?.id || '';
 
     this.addressForm.valueChanges.subscribe(value => {
       if (this.addressForm.valid) {
         this.addressChange.emit(this.formatAddressData(value));
       }
     });
+  }
+
+  segmentChanged(event: any) {
+    this.selectedSegment = event.detail.value;
+    this.cdr.markForCheck();
   }
 
   private initializeAddresses() {
@@ -132,6 +140,7 @@ export class SysmoAddressComponent implements OnInit {
     const addressesArray = this.addressForm.get('addresses') as FormArray;
     addressesArray.clear();
     this.initializeAddresses();
+    this.selectedSegment = this.addressTypes[0]?.id || '';
     this.addressChange.emit(null);
     this.cdr.markForCheck();
   }

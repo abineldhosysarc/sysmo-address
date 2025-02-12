@@ -1,17 +1,21 @@
 <form [formGroup]="addressForm">
   <div formArrayName="addresses">
-    <div *ngFor="let addressControl of getAddresses().controls; let arrayIndex = index" [formGroupName]="arrayIndex">
+    <ion-segment [value]="selectedSegment" (ionChange)="segmentChanged($event)">
+      <ion-segment-button *ngFor="let addressType of addressTypes" [value]="addressType.id">
+        <ion-label>{{ addressType.label }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
 
+    <div *ngFor="let addressControl of getAddresses().controls; let arrayIndex = index" 
+         [formGroupName]="arrayIndex" 
+         [hidden]="addressControl.get('type')?.value !== selectedSegment">
+      
       <ion-item *ngIf="arrayIndex > 0">
         <ion-checkbox (ionChange)="copyAddress(arrayIndex)" slot="start"></ion-checkbox>
-        <ion-label>Same as Above</ion-label>
+        <ion-label>Same as Before</ion-label>
       </ion-item>
 
       <ion-card>
-        <ion-card-header>
-          <ion-card-title>{{ addressControl.get('label')?.value }}</ion-card-title>
-        </ion-card-header>
-        
         <ion-card-content>
           <ng-container *ngFor="let addressField of addressFields">
             <ion-item  class="ion-touched">

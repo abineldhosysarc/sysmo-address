@@ -56,10 +56,10 @@ export class HomePage {
     'UK'
   ];
   addressTypes: AddressType[] = [
-    { id: 'currentAddress', label: 'Current Address', required: true },
-    { id: 'permanentAddress', label: 'Permanent Address', required: true },
-    // { id: 'aadharAddress', label: 'Aadhar Address', required: false },
-    // { id: 'officeAddress', label: 'Office Address', required: false }
+    { id: 'currentAddress', label: 'Current', required: true },
+    { id: 'permanentAddress', label: 'Permanent', required: true },
+    { id: 'aadharAddress', label: 'Aadhar', required: false },
+    // { id: 'officeAddress', label: 'Office', required: false }
   ];
 
   addressFields: AddressField[] = [
@@ -119,12 +119,13 @@ export class HomePage {
   }
 
   private initializeAddressTypes() {
-    this.showCurrentAddressCheckbox = this.addressTypes.length >= 2;
+    this.showCurrentAddressCheckbox = true;
   }
 
   handleAddressChange(addressData: any) {
     this.addressDetails = addressData;
     console.log('Address Data:', addressData);
+    this.cdr.markForCheck();
   }
 
   validateAddressDetails(): boolean {
