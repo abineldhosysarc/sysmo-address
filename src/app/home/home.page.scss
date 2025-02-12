@@ -1,41 +1,73 @@
-.headerTitle {
-  text-align: center;
-  color: rgb(255, 255, 255);
+.headerBackground {
+  --background: var(--ion-color-danger);
+  
+  .headerToolbar {
+    --background: var(--ion-color-danger);
+    
+    ion-title {
+      color: var(--ion-color-light);
+      text-align: center;
+      position: relative;
+      left: 30px;
+    }
+    
+    ion-button {
+      --color: var(--ion-color-light);
+    }
+  }
+}
+
+.contentBackground {
+  --background: #f4f5f8;
+}
+
+.formContainer {
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .formTitle {
+  color: var(--ion-color-dark);
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
   text-align: center;
-  color: rgb(240, 90, 90);
 }
 
-::ng-deep ion-header {
-  --background: red !important;
+.formList {
+  background: transparent;
+  padding: 0;
+  
+  .formItem {
+    --background: var(--ion-color-light);
+    --border-radius: 8px;
+    margin-bottom: 16px;
+    
+    ion-label {
+      color: var(--ion-color-medium);
+    }
+    
+    ion-input, ion-select {
+      --padding-start: 16px;
+      margin-top: 8px;
+    }
+  }
 }
 
-::ng-deep ion-toolbar {
-  --background: red !important;
+.addressSection {
+  margin-top: 24px;
 }
 
-.headerBackground {
-  --background: red !important;
-  --ion-background-color: red !important;
-}
-
-ion-icon {
-  font-size: 2rem;
-}
-
-.headerToolbar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.headerTitle {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  top: 15px;
+.submitButtonContainer {
+  margin-top: 32px;
+  padding: 0 16px;
+  
+  ion-button {
+    --border-radius: 24px;
+    height: 48px;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: none;
+  }
 }

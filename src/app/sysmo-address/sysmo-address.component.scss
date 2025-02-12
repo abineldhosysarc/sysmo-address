@@ -1,25 +1,30 @@
-  .segment-container {
-    width: 100%;
-    overflow-x: auto;
-    position: relative;
+.segment-container {
+  margin: 16px 0;
+  padding: 0 8px;
+}
 
-    ion-segment {
-      width: max-content;
-      min-width: 100%;
-    }
-  }
+.copy-address-item {
+  margin: 12px 8px;
+  --background: transparent;
+  --border-color: transparent;
+}
+
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ion-color-step-50);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ion-color-step-150);
+  border-radius: 3px;
   
-  .copy-address-item {
-    margin: 8px 0;
-    --background: transparent;
+  &:hover {
+    background: var(--ion-color-step-200);
   }
-  
-  ion-card {
-    margin: 16px 0;
-  }
-  
-  ion-segment-button {
-    --padding-start: 16px;
-    --padding-end: 16px;
-    min-width: max-content;
-  }
+}
+
