@@ -38,6 +38,9 @@
       pointer-events: none;
     }
   }
+  ion-label {
+    opacity: 0.8;
+  }
 }
 
 ion-card.read-only {
