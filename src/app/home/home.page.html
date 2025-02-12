@@ -40,12 +40,12 @@
         </ion-item>
 
         <ion-item class="formItem addressSection">
-          <app-sysmo-address
+          <sysmo-address
             [addressTypes]="addressTypes"
             [addressFields]="addressFields"
             (addressChange)="handleAddressChange($event)"
             [showCurrentAddressCheckbox]="showCurrentAddressCheckbox">
-          </app-sysmo-address>
+          </sysmo-address>
         </ion-item>
       </ion-list>
 

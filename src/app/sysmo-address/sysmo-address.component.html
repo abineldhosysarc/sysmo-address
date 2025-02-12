@@ -18,12 +18,24 @@
               <ion-label position="floating">
                 {{ addressField.label }}
               </ion-label>
-              <ion-input
-                [formControlName]="addressField.id"
-                [type]="addressField.type"
-                [attr.maxlength]="addressField.maxLength"
-                (keypress)="addressField.id === 'pinCode' ? restrictPinCodeInput($event) : true"
-              ></ion-input>
+              
+              <ng-container [ngSwitch]="addressField.type">
+                <!-- Select input for state -->
+                <ion-select *ngSwitchCase="'select'"
+                  [formControlName]="addressField.id">
+                  <ion-select-option *ngFor="let option of addressField.options" [value]="option">
+                    {{option}}
+                  </ion-select-option>
+                </ion-select>
+
+                <!-- Default input for other fields -->
+                <ion-input *ngSwitchDefault
+                  [formControlName]="addressField.id"
+                  [type]="addressField.type"
+                  [attr.maxlength]="addressField.maxLength"
+                  (keypress)="addressField.id === 'pinCode' ? restrictPinCodeInput($event) : true">
+                </ion-input>
+              </ng-container>
             </ion-item>
           </ng-container>
         </ion-card-content>

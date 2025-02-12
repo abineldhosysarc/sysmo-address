@@ -16,10 +16,11 @@ interface AddressField {
   type: string;
   validators?: any[];
   maxLength?: number;
+  options?: string[];
 }
 
 @Component({
-  selector: 'app-sysmo-address',
+  selector: 'sysmo-address',
   templateUrl: './sysmo-address.component.html',
   styleUrls: ['./sysmo-address.component.scss'],
   standalone: true,
@@ -86,32 +87,6 @@ export class SysmoAddressComponent implements OnInit {
     return this.addressForm.get('addresses') as FormArray;
   }
 
-  // isFieldInvalid(addressControl: AbstractControl, fieldId: string): boolean {
-  //   if (addressControl instanceof FormGroup) {
-  //     const formControl = addressControl.get(fieldId);
-  //     return formControl ? (formControl.invalid && (formControl.dirty || formControl.touched)) : false;
-  //   }
-  //   return false;
-  // }
-
-  // getFieldErrorMessage(addressControl: AbstractControl, addressField: AddressField): string {
-  //   if (addressControl instanceof FormGroup) {
-  //     const formControl = addressControl.get(addressField.id);
-  //     if (formControl && formControl.errors) {
-  //       if (formControl.errors['required']) {
-  //         return `${addressField.label} is required`;
-  //       }
-  //       if (formControl.errors['pattern']) {
-  //         if (addressField.id === 'pincode') {
-  //           return 'Please enter a valid 6-digit pincode';
-  //         }
-  //         return `Invalid ${addressField.label} format`;
-  //       }
-  //     }
-  //   }
-  //   return '';
-  // }
-
   copyAddress(targetIndex: number) {
     if (targetIndex > 0) {
       const sourceAddress = this.getAddressGroup(targetIndex - 1).value;
@@ -143,5 +118,8 @@ export class SysmoAddressComponent implements OnInit {
       return false;
     }
     return true;
+  }
+  isSelectField(field: AddressField): boolean {
+    return field.type === 'select';
   }
 }

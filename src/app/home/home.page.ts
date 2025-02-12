@@ -16,6 +16,7 @@ interface AddressField {
   type: string;
   validators?: any[];
   maxLength?: number;
+  options?: string[];
 }
 
 @Component({
@@ -27,6 +28,26 @@ interface AddressField {
 export class HomePage {
   mainForm: FormGroup;
   addressDetails: any;
+
+  stateOptions: string[] = [
+    'Kerala',
+    'Karnataka',
+    'Tamil Nadu',
+    'Maharashtra',
+    'Delhi',
+    'Gujarat',
+    'West Bengal',
+    'Andhra Pradesh',
+    'Telangana',
+    'Uttar Pradesh',
+    'Madhya Pradesh',
+    'Punjab',
+    'Rajasthan',
+    'Bihar',
+    'Odisha',
+    'Assam',
+    'Goa'
+  ];
 
   addressTypes: AddressType[] = [
     { id: 'currentAddress', label: 'Current Address', required: true },
@@ -59,17 +80,19 @@ export class HomePage {
       label: 'Pincode',
       required: true,
       type: 'number',
-      validators: [Validators.pattern('^[0-9]{6}$'),Validators.minLength(6),
+      validators: [
+        Validators.pattern('^[0-9]{6}$'),
+        Validators.minLength(6),
         Validators.maxLength(6)
       ],
       maxLength: 6,
-      
     },
     {
       id: 'state',
       label: 'State',
       required: true,
-      type: 'text'
+      type: 'select',
+      options: this.stateOptions
     },
     {
       id: 'country',
@@ -154,6 +177,7 @@ export class HomePage {
     console.log("go to welcome page");
     this.router.navigate(['/frontpage']);
   }
+
   ionViewWillLeave() {
     this.mainForm.reset();
     this.addressDetails = null;
