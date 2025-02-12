@@ -56,10 +56,13 @@ export class HomePage {
     'UK'
   ];
   addressTypes: AddressType[] = [
-    { id: 'currentAddress', label: 'Current', required: true },
-    { id: 'permanentAddress', label: 'Permanent', required: true },
-    { id: 'aadharAddress', label: 'Aadhar', required: false },
-    // { id: 'officeAddress', label: 'Office', required: false }
+    { id: 'currentAddress', label: 'Current Address', required: true },
+    { id: 'permanentAddress', label: 'Permanent Address', required: true },
+    { id: 'aadharAddress', label: 'Aadhar Address', required: false },
+    { id: 'officeAddress', label: 'Office Address', required: false },
+    { id: 'correspondenceAddress', label: 'Correspondence Address', required: false },
+    { id: 'emergencyAddress', label: 'Emergency Address', required: false },
+    { id: 'temporaryAddress', label: 'Temporary Address', required: false }
   ];
 
   addressFields: AddressField[] = [

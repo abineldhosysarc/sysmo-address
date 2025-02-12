@@ -1,0 +1,26 @@
+  .segment-container {
+    width: 100%;
+    overflow-x: auto;
+    position: relative;
+
+    
+    ion-segment {
+      width: max-content;
+      min-width: 100%;
+    }
+  }
+  
+  .copy-address-item {
+    margin: 8px 0;
+    --background: transparent;
+  }
+  
+  ion-card {
+    margin: 16px 0;
+  }
+  
+  ion-segment-button {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    min-width: max-content;
+  }

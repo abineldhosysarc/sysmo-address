@@ -1,17 +1,19 @@
 <form [formGroup]="addressForm">
   <div formArrayName="addresses">
-    <ion-segment [value]="selectedSegment" (ionChange)="segmentChanged($event)">
-      <ion-segment-button *ngFor="let addressType of addressTypes" [value]="addressType.id">
-        <ion-label>{{ addressType.label }}</ion-label>
-      </ion-segment-button>
-    </ion-segment>
+    <div class="segment-container">
+      <ion-segment [value]="selectedSegment" color="danger"  (ionChange)="segmentChanged($event)" scrollable="true">
+        <ion-segment-button *ngFor="let addressType of addressTypes" [value]="addressType.id">
+          <ion-label>{{ addressType.label }}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
 
     <div *ngFor="let addressControl of getAddresses().controls; let arrayIndex = index" 
          [formGroupName]="arrayIndex" 
          [hidden]="addressControl.get('type')?.value !== selectedSegment">
       
-      <ion-item *ngIf="arrayIndex > 0">
-        <ion-checkbox (ionChange)="copyAddress(arrayIndex)" slot="start"></ion-checkbox>
+      <ion-item *ngIf="arrayIndex > 0" lines="none" class="copy-address-item">
+        <ion-checkbox (ionChange)="copyAddress(arrayIndex)" color="danger" slot="start"></ion-checkbox>
         <ion-label>Same as Before</ion-label>
       </ion-item>
 
@@ -21,6 +23,7 @@
             <ion-item  class="ion-touched">
               <ion-label position="floating">
                 {{ addressField.label }}
+                <span *ngIf="addressField.required" class="required-marker">*</span>
               </ion-label>
               
               <ng-container [ngSwitch]="addressField.type">
