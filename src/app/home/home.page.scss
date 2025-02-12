@@ -8,12 +8,12 @@
   color: rgb(240, 90, 90);
 }
 
-::ng-deep .custom-alert .alert-wrapper {
-  --background: white;
-  --color: black;
-  --ion-text-color: black;
-  --ion-color-primary: black;
-}
+// ::ng-deep .custom-alert .alert-wrapper {
+//   --background: white;
+//   --color: black;
+//   --ion-text-color: black;
+//   --ion-color-primary: black;
+// }
 
 ::ng-deep ion-header {
   --background: red !important;
