@@ -154,4 +154,10 @@ export class HomePage {
     console.log("go to welcome page");
     this.router.navigate(['/frontpage']);
   }
+  ionViewWillLeave() {
+    this.mainForm.reset();
+    this.addressDetails = null;
+    console.log('Form cleared on page leave');
+  }
+
 }
