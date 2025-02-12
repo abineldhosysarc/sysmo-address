@@ -14,19 +14,15 @@
 
         <ion-card-content>
           <ng-container *ngFor="let addressField of addressFields">
-            <ion-item [class.ion-invalid]="isFieldInvalid(addressControl, addressField.id)" class="ion-touched">
+            <ion-item  class="ion-touched">
               <ion-label position="floating">
-                {{ addressField.label }}{{ addressControl.get('required')?.value && addressField.required ? ' *' : '' }}
+                {{ addressField.label }}
               </ion-label>
               <ion-input
                 [formControlName]="addressField.id"
                 [type]="addressField.type"
                 [attr.maxlength]="addressField.maxLength"
-                [required]="addressControl.get('required')?.value && addressField.required"
               ></ion-input>
-              <ion-note slot="error" *ngIf="isFieldInvalid(addressControl, addressField.id)">
-                {{ getFieldErrorMessage(addressControl, addressField) }}
-              </ion-note>
             </ion-item>
           </ng-container>
         </ion-card-content>

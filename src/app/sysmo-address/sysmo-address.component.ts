@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
@@ -86,31 +86,31 @@ export class SysmoAddressComponent implements OnInit {
     return this.addressForm.get('addresses') as FormArray;
   }
 
-  isFieldInvalid(addressControl: AbstractControl, fieldId: string): boolean {
-    if (addressControl instanceof FormGroup) {
-      const formControl = addressControl.get(fieldId);
-      return formControl ? (formControl.invalid && (formControl.dirty || formControl.touched)) : false;
-    }
-    return false;
-  }
+  // isFieldInvalid(addressControl: AbstractControl, fieldId: string): boolean {
+  //   if (addressControl instanceof FormGroup) {
+  //     const formControl = addressControl.get(fieldId);
+  //     return formControl ? (formControl.invalid && (formControl.dirty || formControl.touched)) : false;
+  //   }
+  //   return false;
+  // }
 
-  getFieldErrorMessage(addressControl: AbstractControl, addressField: AddressField): string {
-    if (addressControl instanceof FormGroup) {
-      const formControl = addressControl.get(addressField.id);
-      if (formControl && formControl.errors) {
-        if (formControl.errors['required']) {
-          return `${addressField.label} is required`;
-        }
-        if (formControl.errors['pattern']) {
-          if (addressField.id === 'pincode') {
-            return 'Please enter a valid 6-digit pincode';
-          }
-          return `Invalid ${addressField.label} format`;
-        }
-      }
-    }
-    return '';
-  }
+  // getFieldErrorMessage(addressControl: AbstractControl, addressField: AddressField): string {
+  //   if (addressControl instanceof FormGroup) {
+  //     const formControl = addressControl.get(addressField.id);
+  //     if (formControl && formControl.errors) {
+  //       if (formControl.errors['required']) {
+  //         return `${addressField.label} is required`;
+  //       }
+  //       if (formControl.errors['pattern']) {
+  //         if (addressField.id === 'pincode') {
+  //           return 'Please enter a valid 6-digit pincode';
+  //         }
+  //         return `Invalid ${addressField.label} format`;
+  //       }
+  //     }
+  //   }
+  //   return '';
+  // }
 
   copyAddress(targetIndex: number) {
     if (targetIndex > 0) {

@@ -45,13 +45,13 @@ export class HomePage {
     {
       id: 'addressLineTwo',
       label: 'Address Line 2',
-      required: false,
+      required: true,
       type: 'text'
     },
     {
       id: 'addressLineThree',
       label: 'Address Line 3',
-      required: false,
+      required: true,
       type: 'text'
     },
     {
