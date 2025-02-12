@@ -1,7 +1,7 @@
 <form [formGroup]="addressForm">
   <div formArrayName="addresses">
     <div *ngFor="let addressControl of getAddresses().controls; let arrayIndex = index" [formGroupName]="arrayIndex">
-      
+
       <ion-item *ngIf="arrayIndex > 0">
         <ion-checkbox (ionChange)="copyAddress(arrayIndex)" slot="start"></ion-checkbox>
         <ion-label>Same as Above</ion-label>
@@ -11,7 +11,7 @@
         <ion-card-header>
           <ion-card-title>{{ addressControl.get('label')?.value }}</ion-card-title>
         </ion-card-header>
-
+        
         <ion-card-content>
           <ng-container *ngFor="let addressField of addressFields">
             <ion-item  class="ion-touched">
@@ -20,15 +20,12 @@
               </ion-label>
               
               <ng-container [ngSwitch]="addressField.type">
-                <!-- Select input for state -->
                 <ion-select *ngSwitchCase="'select'"
                   [formControlName]="addressField.id">
                   <ion-select-option *ngFor="let option of addressField.options" [value]="option">
                     {{option}}
                   </ion-select-option>
                 </ion-select>
-
-                <!-- Default input for other fields -->
                 <ion-input *ngSwitchDefault
                   [formControlName]="addressField.id"
                   [type]="addressField.type"
@@ -37,6 +34,17 @@
                 </ion-input>
               </ng-container>
             </ion-item>
+            <ion-text color="danger" *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.invalid && getAddressGroup(arrayIndex).get(addressField.id)?.touched">
+              <p *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.errors?.['required']">
+                {{ addressField.label }} is required.
+              </p>
+              <p *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.errors?.['maxlength']">
+                Max length exceeded ({{ addressField.maxLength }} characters).
+              </p>
+              <p *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.errors?.['pattern']">
+                Invalid format for {{ addressField.label }}.
+              </p>
+            </ion-text>
           </ng-container>
         </ion-card-content>
       </ion-card>

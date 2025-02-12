@@ -135,4 +135,17 @@ export class SysmoAddressComponent implements OnInit {
     this.addressChange.emit(null);
     this.cdr.markForCheck();
   }
+  getErrorMessage(formGroup: FormGroup, field: AddressField): string {
+    const control = formGroup.get(field.id);
+    if (control?.hasError('required')) {
+      return `${field.label} is required.`;
+    }
+    if (control?.hasError('maxlength')) {
+      return `Max length exceeded (${field.maxLength} characters).`;
+    }
+    if (control?.hasError('pattern')) {
+      return `Invalid format for ${field.label}.`;
+    }
+    return '';
+  }
 }
