@@ -41,8 +41,8 @@ export class SysmoAddressComponent implements OnInit {
   @Input() addressTypes: AddressType[] = [];
   @Input() addressFields: AddressField[] = [];
   @Input() errorMessages: { [fieldId: string]: ErrorMessages } = {};
-  @Output() addressChange = new EventEmitter<any>();
   @Input() styleConfigs: StyleConfig[] = [];
+  @Output() addressChange = new EventEmitter<any>();
   addressForm: FormGroup;
   selectedSegment: string;
   readOnlyStates: boolean[] = [];
@@ -69,7 +69,7 @@ export class SysmoAddressComponent implements OnInit {
     });
   }
 
-  segmentChanged(event: any) {
+  segmentChanged(event: CustomEvent) {
     this.selectedSegment = event.detail.value;
     this.cdr.markForCheck();
   }
@@ -84,10 +84,10 @@ export class SysmoAddressComponent implements OnInit {
   }
 
   private createAddressGroup(addressType: AddressType): FormGroup {
-    const formGroup: any = {
-      type: [addressType.id],
-      label: [addressType.label],
-      required: [addressType.required],
+    const formGroup: { [key: string]: any } = {
+      type: [{ value: addressType.id, disabled: false }],
+      label: [{ value: addressType.label, disabled: false }],
+      required: [{ value: addressType.required, disabled: false }],
     };
 
     this.addressFields.forEach(addressField => {
@@ -98,7 +98,10 @@ export class SysmoAddressComponent implements OnInit {
       if (addressField.validators) {
         fieldValidators.push(...addressField.validators);
       }
-      formGroup[addressField.id] = ['', fieldValidators.length > 0 ? fieldValidators : null];
+      formGroup[addressField.id] = [{ 
+        value: '', 
+        disabled: false 
+      }, fieldValidators.length > 0 ? fieldValidators : null];
     });
 
     return this.formBuilder.group(formGroup);
@@ -112,20 +115,42 @@ export class SysmoAddressComponent implements OnInit {
     return this.addressForm.get('addresses') as FormArray;
   }
 
-  copyAddress(arrayIndex: number, event: any) {
+  copyAddress(arrayIndex: number, event: CustomEvent) {
     const isChecked = event.detail.checked;
     this.readOnlyStates[arrayIndex] = isChecked;
     
     if (isChecked && arrayIndex > 0) {
-      const sourceAddress = this.getAddressGroup(arrayIndex - 1).value;
-      const copyValues: any = {};
+      const sourceAddress = this.getAddressGroup(arrayIndex - 1).getRawValue();
+      const copyValues: { [key: string]: any } = {};
       
       this.addressFields.forEach(addressField => {
         copyValues[addressField.id] = sourceAddress[addressField.id];
       });
 
-      this.getAddressGroup(arrayIndex).patchValue(copyValues);
+      const currentGroup = this.getAddressGroup(arrayIndex);
+      
+      Object.keys(copyValues).forEach(key => {
+        const control = currentGroup.get(key);
+        if (control) {
+          if (isChecked) {
+            control.disable();
+          } else {
+            control.enable();
+          }
+        }
+      });
+
+      currentGroup.patchValue(copyValues);
+    } else {
+      const currentGroup = this.getAddressGroup(arrayIndex);
+      Object.keys(currentGroup.controls).forEach(key => {
+        const control = currentGroup.get(key);
+        if (control) {
+          control.enable();
+        }
+      });
     }
+    
     this.cdr.markForCheck();
   }
   isReadOnly(arrayIndex: number): boolean {
@@ -133,9 +158,13 @@ export class SysmoAddressComponent implements OnInit {
   }
 
   private formatAddressData(formValue: any) {
-    const formattedData: any = {};
-    formValue.addresses.forEach((addressData: any) => {
-      const processedAddress: any = {};
+    const formattedData: { [key: string]: any } = {};
+    const addresses = this.getAddresses();
+    
+    (addresses.controls as FormGroup[]).forEach((addressGroup: FormGroup) => {
+      const addressData = addressGroup.getRawValue();
+      const processedAddress: { [key: string]: any } = {};
+      
       this.addressFields.forEach(addressField => {
         processedAddress[addressField.id] = addressData[addressField.id];
       });
