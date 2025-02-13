@@ -21,7 +21,7 @@
         <ion-card-content>
           <ng-container *ngFor="let addressField of addressFields">
             <ion-item  class="ion-touched">
-              <ion-label position="floating">
+              <ion-label position="floating" [color]="labelColor">
                 {{ addressField.label }}
                 <span *ngIf="addressField.required" class="required-marker">*</span>
               </ion-label>

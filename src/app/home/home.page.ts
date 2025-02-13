@@ -31,6 +31,8 @@ export class HomePage {
   mainForm: FormGroup;
   addressDetails: any;
   @ViewChild(SysmoAddressComponent) addressComponent!: SysmoAddressComponent;
+  labelColor: string = 'black';
+  segmentColor: string = 'danger';
   stateOptions: string[] = [
     'Kerala',
     'Karnataka',
@@ -144,7 +146,6 @@ export class HomePage {
 
   handleAddressChange(addressData: any) {
     this.addressDetails = addressData;
-    console.log('Address Data:', addressData);
     this.cdr.markForCheck();
   }
 
