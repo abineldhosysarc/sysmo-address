@@ -1,7 +1,7 @@
 <form [formGroup]="addressForm">
   <div formArrayName="addresses">
     <div class="segment-container">
-      <ion-segment [value]="selectedSegment" color="danger"  (ionChange)="segmentChanged($event)" scrollable="true">
+      <ion-segment [value]="selectedSegment" [color]="segmentColor"  (ionChange)="segmentChanged($event)" scrollable="true">
         <ion-segment-button *ngFor="let addressType of addressTypes" [value]="addressType.id">
           <ion-label>{{ addressType.label }}</ion-label>
         </ion-segment-button>
