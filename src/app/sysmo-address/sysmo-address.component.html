@@ -38,7 +38,7 @@
                   [formControlName]="addressField.id"
                   [type]="addressField.type"
                   [attr.maxLength]="addressField.maxLength"
-                  [readonly]="isReadOnly(arrayIndex)"
+                  [disabled]="isReadOnly(arrayIndex)"
                   (keypress)="addressField.id === 'pinCode' ? restrictPinCodeInput($event) : true">
                 </ion-input>
               </ng-container>
