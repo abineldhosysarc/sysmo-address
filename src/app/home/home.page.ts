@@ -57,6 +57,12 @@ export class HomePage {
     'Canada',
     'UK'
   ];
+  styleConfigs = [
+    { name: 'ionCardWidth', value: '400px' },
+    { name: 'ionCardHeight', value: '300px' },
+    { name: 'labelColor', value: 'black' },
+    { name: 'segmentColor', value: 'danger' }
+  ];
   addressTypes: AddressType[] = [
     { id: 'currentAddress', label: 'Current Address', required: true },
     { id: 'permanentAddress', label: 'Permanent Address', required: true },

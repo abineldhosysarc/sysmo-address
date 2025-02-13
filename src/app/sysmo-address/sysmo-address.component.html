@@ -1,7 +1,7 @@
 <form [formGroup]="addressForm">
   <div formArrayName="addresses">
     <div class="segment-container">
-      <ion-segment [value]="selectedSegment" [color]="segmentColor"  (ionChange)="segmentChanged($event)" scrollable="true">
+      <ion-segment [value]="selectedSegment" [color]="getSegmentColor()"  (ionChange)="segmentChanged($event)" scrollable="true">
         <ion-segment-button *ngFor="let addressType of addressTypes" [value]="addressType.id">
           <ion-label>{{ addressType.label }}</ion-label>
         </ion-segment-button>
@@ -17,11 +17,11 @@
         <ion-label>Same as Before</ion-label>
       </ion-item>
 
-      <ion-card [class.read-only]="isReadOnly(arrayIndex)">
+      <ion-card [class.read-only]="isReadOnly(arrayIndex)" [ngStyle]="getIonCardStyles()">
         <ion-card-content>
           <ng-container *ngFor="let addressField of addressFields">
             <ion-item  class="ion-touched">
-              <ion-label position="floating" [color]="labelColor">
+              <ion-label position="floating" [color]="getLabelColor()">
                 {{ addressField.label }}
                 <span *ngIf="addressField.required" class="required-marker">*</span>
               </ion-label>

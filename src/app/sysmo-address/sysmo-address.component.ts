@@ -18,7 +18,10 @@ interface AddressField {
   maxLength?: number;
   options?: string[];
 }
-
+interface StyleConfig {
+  name: string;
+  value: string;
+}
 interface ErrorMessages {
   required?: string;
   maxlength?: string;
@@ -39,9 +42,7 @@ export class SysmoAddressComponent implements OnInit {
   @Input() addressFields: AddressField[] = [];
   @Input() errorMessages: { [fieldId: string]: ErrorMessages } = {};
   @Output() addressChange = new EventEmitter<any>();
-  @Input() labelColor: string = '';
-  @Input() segmentColor: string = '';
-  // showCurrentAddressCheckbox: boolean = false;
+  @Input() styleConfigs: StyleConfig[] = [];
   addressForm: FormGroup;
   selectedSegment: string;
   readOnlyStates: boolean[] = [];
@@ -174,5 +175,25 @@ export class SysmoAddressComponent implements OnInit {
       }
     }
     return '';
+  }
+
+  getStyleValue(name: string): string {
+    const config = this.styleConfigs.find(style => style.name === name);
+    return config ? config.value : '';
+  }
+  
+  getLabelColor(): string {
+    return this.getStyleValue('labelColor');
+  }
+  
+  getSegmentColor(): string {
+    return this.getStyleValue('segmentColor');
+  }
+
+  getIonCardStyles() {
+    return {
+      width: this.getStyleValue('ionCardWidth'),
+      height: this.getStyleValue('ionCardHeight')
+    };
   }
 }
