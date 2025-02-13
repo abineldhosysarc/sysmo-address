@@ -41,7 +41,7 @@ export class SysmoAddressComponent implements OnInit {
   @Output() addressChange = new EventEmitter<any>();
   @Input() labelColor: string = '';
   @Input() segmentColor: string = '';
-  @Input() showCurrentAddressCheckbox: boolean = false;
+  // showCurrentAddressCheckbox: boolean = false;
   addressForm: FormGroup;
   selectedSegment: string;
   readOnlyStates: boolean[] = [];

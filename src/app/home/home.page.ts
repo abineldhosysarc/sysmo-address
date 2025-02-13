@@ -119,7 +119,7 @@ export class HomePage {
     }
   };
 
-  showCurrentAddressCheckbox = false;
+  // showCurrentAddressCheckbox = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -134,15 +134,15 @@ export class HomePage {
       gender: ['', Validators.required]
     });
 
-    this.initializeAddressTypes();
+    // this.initializeAddressTypes();
     this.mainForm.valueChanges.subscribe(() => {
       this.cdr.markForCheck();
     });
   }
 
-  private initializeAddressTypes() {
-    this.showCurrentAddressCheckbox = true;
-  }
+  // private initializeAddressTypes() {
+  //   // this.showCurrentAddressCheckbox = true;
+  // }
 
   handleAddressChange(addressData: any) {
     this.addressDetails = addressData;
