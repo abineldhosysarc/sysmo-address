@@ -14,23 +14,9 @@
   width: 6px;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--ion-color-step-50);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--ion-color-step-150);
-  border-radius: 3px;
-  
-  &:hover {
-    background: var(--ion-color-step-200);
-  }
-}
 
 .read-only {
   ion-item {
-    --background: var(--ion-color-light);
     opacity: 0.8;
     
     ion-input, ion-select, ion-label {
@@ -38,8 +24,4 @@
       pointer-events: none;
     }
   }
-}
-
-ion-card.read-only {
-  background: var(--ion-color-light);
 }
