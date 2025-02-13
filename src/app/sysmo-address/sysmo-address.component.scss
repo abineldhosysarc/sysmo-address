@@ -33,13 +33,10 @@
     --background: var(--ion-color-light);
     opacity: 0.8;
     
-    ion-input, ion-select {
-      --opacity: 0.8;
+    ion-input, ion-select, ion-label {
+      opacity: 0.8;
       pointer-events: none;
     }
-  }
-  ion-label {
-    opacity: 0.8;
   }
 }
 
