@@ -64,13 +64,13 @@ export class HomePage {
     { name: 'segmentColor', value: 'danger' }
   ];
   addressTypes: AddressType[] = [
-    { id: 'currentAddress', label: 'Current Address', required: true },
-    { id: 'permanentAddress', label: 'Permanent Address', required: true },
-    { id: 'aadharAddress', label: 'Aadhar Address', required: false },
-    { id: 'officeAddress', label: 'Office Address', required: false },
-    { id: 'correspondenceAddress', label: 'Correspondence Address', required: false },
-    { id: 'emergencyAddress', label: 'Emergency Address', required: false },
-    { id: 'temporaryAddress', label: 'Temporary Address', required: false }
+    { id: 'current', label: 'Current Address', required: true },
+    { id: 'permanent', label: 'Permanent Address', required: true },
+    { id: 'aadhar', label: 'Aadhar Address', required: false },
+    { id: 'office', label: 'Office Address', required: false },
+    { id: 'correspondence', label: 'Correspondence Address', required: false },
+    { id: 'emergency', label: 'Emergency Address', required: false },
+    { id: 'temporary', label: 'Temporary Address', required: false }
   ];
 
   addressFields: AddressField[] = [
