@@ -11,28 +11,36 @@
     <div *ngFor="let addressControl of getAddresses().controls; let arrayIndex = index"
          [formGroupName]="arrayIndex"
          [hidden]="addressControl.get('type')?.value !== selectedSegment">
-
-      <ion-item *ngIf="showCopyFromCurrent(arrayIndex)" lines="none" class="copy-address-item">
-        <ion-checkbox
-          (ionChange)="copyAddress(arrayIndex, $event, 'current')"
-          [checked]="copyFromCurrentAddress[arrayIndex]"
-          [disabled]="copyFromPermanentAddress[arrayIndex]"
-          color="danger"
-          slot="start">
-        </ion-checkbox>
-        <ion-label>Same as Current Address</ion-label>
-      </ion-item>
-
-      <ion-item *ngIf="showCopyFromPermanent(arrayIndex)" lines="none" class="copy-address-item">
-        <ion-checkbox
-          (ionChange)="copyAddress(arrayIndex, $event, 'permanent')"
-          [checked]="copyFromPermanentAddress[arrayIndex]"
-          [disabled]="copyFromCurrentAddress[arrayIndex]"
-          color="danger"
-          slot="start">
-        </ion-checkbox>
-        <ion-label>Same as Permanent Address</ion-label>
-      </ion-item>
+         <ion-grid>
+         <ion-row>
+          <ion-col [size]="showCopyFromCurrent(arrayIndex) && showCopyFromPermanent(arrayIndex) ? '6' : '12'">
+            <ion-item *ngIf="showCopyFromCurrent(arrayIndex)" lines="none" class="copy-address-item">
+              <ion-checkbox
+                (ionChange)="copyAddress(arrayIndex, $event, 'current')"
+                [checked]="copyFromCurrentAddress[arrayIndex]"
+                [disabled]="copyFromPermanentAddress[arrayIndex]"
+                color="danger"
+                slot="start">
+              </ion-checkbox>
+              <ion-label>Same as Current Address</ion-label>
+            </ion-item>
+          </ion-col>
+        
+          <ion-col *ngIf="showCopyFromPermanent(arrayIndex)" [size]="showCopyFromCurrent(arrayIndex) ? '6' : '12'">
+            <ion-item lines="none" class="copy-address-item">
+              <ion-checkbox
+                (ionChange)="copyAddress(arrayIndex, $event, 'permanent')"
+                [checked]="copyFromPermanentAddress[arrayIndex]"
+                [disabled]="copyFromCurrentAddress[arrayIndex]"
+                color="danger"
+                slot="start">
+              </ion-checkbox>
+              <ion-label>Same as Permanent Address</ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+        
 
       <ion-card [class.read-only]="isReadOnly(arrayIndex)" [ngStyle]="getIonCardStyles()">
         <ion-card-content>
