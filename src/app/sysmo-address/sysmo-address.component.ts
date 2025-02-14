@@ -285,6 +285,28 @@ export class SysmoAddressComponent implements OnInit {
     return this.getStyleValue('fontSize');
   }
 
+  textAlign(): string {
+    return this.getStyleValue('textAlign');
+  }
+
+  textAlignInput(): string {
+    return this.getStyleValue('textAlignInput');
+  }
+
+  textAlignErrorMessage(): string {
+    return this.getStyleValue('textAlignErrorMessage');
+  }
+
+  fontSizeErrorMessage(): string {
+    return this.getStyleValue('fontSizeErrorMessage');
+  }
+
+  checkboxTextAlign(): string {
+    return this.getStyleValue('checkboxTextAlign');
+  }
+
+  
+
   getIonCardStyles() {
     return {
       width: this.getStyleValue('ionCardWidth'),

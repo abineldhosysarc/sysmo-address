@@ -22,7 +22,7 @@
                 [color]="checkedCurrent()"
                 slot="start">
               </ion-checkbox>
-              <ion-label [ngStyle]="{ color: checkboxCurrent(), 'font-size': getFontSize() }">Same as Current Address</ion-label>
+              <ion-label [ngStyle]="{ color: checkboxCurrent(), 'font-size': getFontSize(), 'text-align': checkboxTextAlign()  }">Same as Current Address</ion-label>
             </ion-item>
           </ion-col>
         
@@ -35,7 +35,7 @@
                 [color]="checkedPermanent()"
                 slot="start">
               </ion-checkbox>
-              <ion-label [ngStyle]="{ color: checkedPermanent(), 'font-size': getFontSize() }">Same as Permanent Address</ion-label>
+              <ion-label [ngStyle]="{ color: checkedPermanent(), 'font-size': getFontSize(),'text-align': checkboxTextAlign() }">Same as Permanent Address</ion-label>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -73,11 +73,12 @@
                   [formControlName]="addressField.id"
                   [type]="addressField.type"
                   [attr.maxLength]="addressField.maxLength"
+                  [ngStyle]="{ 'text-align': textAlignInput(),  'font-size': getFontSize() }"
                   (keypress)="addressField.id === 'pinCode' ? restrictPinCodeInput($event) : true">
                 </ion-input>
               </ng-container>
             </ion-item>
-            <ion-text color="danger"
+            <ion-text color="danger"  [ngStyle]="{ 'text-align': textAlignErrorMessage(),  'font-size': fontSizeErrorMessage() }"
               *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.invalid">
               <p>{{ getErrorMessage(getAddressGroup(arrayIndex), addressField) }}</p>
             </ion-text>

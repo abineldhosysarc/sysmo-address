@@ -68,7 +68,13 @@ export class HomePage {
     { name: 'cardBackground', value: '' },
     { name: 'cardColor', value: '' },
     { name: 'cardPadding', value: '' },
-    { name: 'fontSize', value:''}
+    { name: 'fontSize', value:''},
+    { name: 'textAlign', value:''},
+    { name: 'textAlignInput', value :''},
+    {name : 'fontSizeErrorMessage', value:''},
+    {name : 'textAlignErrorMessage', value:''},
+    {name : 'checkboxTextAlign', value:''}
+
   ];
   addressTypes: AddressType[] = [
     { id: 'current', label: 'Current Address', required: true },
