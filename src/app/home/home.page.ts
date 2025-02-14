@@ -59,9 +59,16 @@ export class HomePage {
   ];
   styleConfigs = [
     { name: 'ionCardWidth', value: '400px' },
-    { name: 'ionCardHeight', value: '300px' },
     { name: 'labelColor', value: 'black' },
-    { name: 'segmentColor', value: 'danger' }
+    { name: 'checkboxPermanentlabel', value: 'black' },
+    { name: 'checkboxCurrentlabel', value: 'black' },
+    { name: 'checkedCurrent', value: 'danger' },
+    { name: 'checkedPermanent', value: 'danger' },
+    { name: 'segmentColor', value: 'danger' },
+    { name: 'cardBackground', value: '' },
+    { name: 'cardColor', value: '' },
+    { name: 'cardPadding', value: '' },
+    { name: 'fontSize', value:''}
   ];
   addressTypes: AddressType[] = [
     { id: 'current', label: 'Current Address', required: true },

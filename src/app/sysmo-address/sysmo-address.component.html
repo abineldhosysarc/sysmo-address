@@ -3,7 +3,7 @@
     <div class="segment-container">
       <ion-segment [value]="selectedSegment" [color]="getSegmentColor()"  (ionChange)="segmentChanged($event)" scrollable="true">
         <ion-segment-button *ngFor="let addressType of addressTypes" [value]="addressType.id">
-          <ion-label>{{ addressType.label }}</ion-label>
+          <ion-label [ngStyle]="{ color: getLabelColor() , 'font-size': getFontSize()}">{{ addressType.label }}</ion-label>
         </ion-segment-button>
       </ion-segment>
     </div>
@@ -19,10 +19,10 @@
                 (ionChange)="copyAddress(arrayIndex, $event, 'current')"
                 [checked]="copyFromCurrentAddress[arrayIndex]"
                 [disabled]="copyFromPermanentAddress[arrayIndex]"
-                color="danger"
+                [color]="checkedCurrent()"
                 slot="start">
               </ion-checkbox>
-              <ion-label>Same as Current Address</ion-label>
+              <ion-label [ngStyle]="{ color: checkboxCurrent(), 'font-size': getFontSize() }">Same as Current Address</ion-label>
             </ion-item>
           </ion-col>
         
@@ -32,10 +32,10 @@
                 (ionChange)="copyAddress(arrayIndex, $event, 'permanent')"
                 [checked]="copyFromPermanentAddress[arrayIndex]"
                 [disabled]="copyFromCurrentAddress[arrayIndex]"
-                color="danger"
+                [color]="checkedPermanent()"
                 slot="start">
               </ion-checkbox>
-              <ion-label>Same as Permanent Address</ion-label>
+              <ion-label [ngStyle]="{ color: checkedPermanent(), 'font-size': getFontSize() }">Same as Permanent Address</ion-label>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -46,7 +46,7 @@
         <ion-card-content>
           <ng-container *ngFor="let addressField of addressFields">
             <ion-item  class="ion-touched">
-              <ion-label position="floating" [color]="getLabelColor()">
+              <ion-label position="floating" [ngStyle]="{ color: getLabelColor() }">
                 {{ addressField.label }}
                 <span *ngIf="addressField.required" class="required-marker">*</span>
               </ion-label>
@@ -57,7 +57,7 @@
                     <ion-radio-group [formControlName]="addressField.id" class="radio-group">
                       <ion-item *ngFor="let option of addressField.options" lines="none" class="radio-item">
                         <ion-radio slot="start" [value]="option"></ion-radio>
-                        <ion-label class="ion-padding-start">{{ option }}</ion-label>
+                        <ion-label  class="ion-padding-start" [ngStyle]="{ color: getLabelColor() }" >{{ option }}</ion-label>
                       </ion-item>
                     </ion-radio-group>
                   </ng-container>

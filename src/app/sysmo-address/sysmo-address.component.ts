@@ -265,10 +265,32 @@ export class SysmoAddressComponent implements OnInit {
     return this.getStyleValue('segmentColor');
   }
 
+  checkboxCurrent(): string {
+    return this.getStyleValue('checkboxPermanentlabel');
+  }
+
+  checkboxPermanent(): string {
+    return this.getStyleValue('checkboxPermanentlabel');
+  }
+
+  checkedPermanent(): string {
+    return this.getStyleValue('checkedPermanent');
+  }
+
+  checkedCurrent(): string {
+    return this.getStyleValue('checkedCurrent');
+  }
+
+  getFontSize(): string {
+    return this.getStyleValue('fontSize');
+  }
+
   getIonCardStyles() {
     return {
       width: this.getStyleValue('ionCardWidth'),
-      // height: this.getStyleValue('ionCardHeight')
+      padding: this.getStyleValue('cardPadding'),
+      '--background': this.getStyleValue('cardBackground'),
+      '--color': this.getStyleValue('cardColor')
     };
   }
 
