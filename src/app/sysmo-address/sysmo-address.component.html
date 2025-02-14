@@ -11,7 +11,7 @@
     <div *ngFor="let addressControl of getAddresses().controls; let arrayIndex = index"
          [formGroupName]="arrayIndex"
          [hidden]="addressControl.get('type')?.value !== selectedSegment">
-      
+
       <ion-item *ngIf="arrayIndex > 0" lines="none" class="copy-address-item">
         <ion-checkbox (ionChange)="copyAddress(arrayIndex, $event)" color="danger" slot="start"></ion-checkbox>
         <ion-label>Same as Before</ion-label>
@@ -27,12 +27,23 @@
               </ion-label>
 
               <ng-container [ngSwitch]="addressField.type">
-                <ion-select *ngSwitchCase="'select'"
-                  [formControlName]="addressField.id">
-                  <ion-select-option *ngFor="let option of addressField.options" [value]="option">
-                    {{option}}
-                  </ion-select-option>
-                </ion-select>
+                <ng-container *ngSwitchCase="'select'">
+                  <ng-container *ngIf="addressField.options && addressField.options.length < 4; else selectDropdown">
+                    <ion-radio-group [formControlName]="addressField.id" class="radio-group">
+                      <ion-item *ngFor="let option of addressField.options" lines="none" class="radio-item">
+                        <ion-radio slot="start" [value]="option"></ion-radio>
+                        <ion-label class="ion-padding-start">{{ option }}</ion-label>
+                      </ion-item>
+                    </ion-radio-group>
+                  </ng-container>
+                  <ng-template #selectDropdown>
+                    <ion-select [formControlName]="addressField.id" class="select-field">
+                      <ion-select-option *ngFor="let option of addressField.options" [value]="option">
+                        {{option}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ng-template>
+                </ng-container>
                 <ion-input *ngSwitchDefault
                   [formControlName]="addressField.id"
                   [type]="addressField.type"
@@ -42,9 +53,8 @@
               </ng-container>
             </ion-item>
             <ion-text color="danger"
-                      *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.invalid &&
-                            getAddressGroup(arrayIndex).get(addressField.id)?.touched">
-              <p>{{ getErrorMessage(getAddressGroup(arrayIndex), addressField) }}</p>
+            *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.invalid">
+             <p>{{ getErrorMessage(getAddressGroup(arrayIndex), addressField) }}</p>
             </ion-text>
           </ng-container>
         </ion-card-content>

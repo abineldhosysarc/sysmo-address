@@ -14,6 +14,15 @@
   width: 6px;
 }
 
+.radio-group {
+  width: 100%;
+  margin: 1rem 0;
+
+  .radio-item {
+    --min-height: 50px;
+    margin: 0.5rem 0;
+  }
+}
 
 .read-only {
   ion-item {
@@ -24,4 +33,7 @@
       pointer-events: none;
     }
   }
+}
+ion-card {
+  height: auto !important;
 }

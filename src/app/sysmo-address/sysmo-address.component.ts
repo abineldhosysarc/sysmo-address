@@ -194,7 +194,7 @@ export class SysmoAddressComponent implements OnInit {
   }
   getErrorMessage(formGroup: FormGroup, field: AddressField): string {
     const control = formGroup.get(field.id);
-    if (!control?.errors) return '';
+    if (!control?.errors || !control.touched) return '';
   
     const fieldErrors = this.errorMessages[field.id] || {};
     
@@ -222,7 +222,22 @@ export class SysmoAddressComponent implements OnInit {
   getIonCardStyles() {
     return {
       width: this.getStyleValue('ionCardWidth'),
-      height: this.getStyleValue('ionCardHeight')
+      // height: this.getStyleValue('ionCardHeight')
     };
   }
+
+  markAllFieldsAsTouched() {
+    const addressesArray = this.getAddresses();
+    (addressesArray.controls as FormGroup[]).forEach((addressGroup: FormGroup) => {
+      Object.keys(addressGroup.controls).forEach(key => {
+        const control = addressGroup.get(key);
+        if (control) {
+          control.markAsTouched();
+          control.updateValueAndValidity();
+        }
+      });
+    });
+    this.cdr.markForCheck();
+  }
+
 }

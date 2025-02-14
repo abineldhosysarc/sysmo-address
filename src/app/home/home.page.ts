@@ -122,6 +122,9 @@ export class HomePage {
     },
     country: {
       required: 'Please select your country from the list'
+    },
+    ionRadio: {
+      required: 'Please select an option'
     }
   };
 
@@ -173,19 +176,24 @@ export class HomePage {
   }
 
   async submitForm() {
+    Object.keys(this.mainForm.controls).forEach(key => {
+      const control = this.mainForm.get(key);
+      control?.markAsTouched();
+    });
+    this.addressComponent.markAllFieldsAsTouched();
     if (!this.mainForm.valid || !this.validateAddressDetails()) {
       await this.showAlert('Form Submission Failed', 'Please fill in all required fields before submitting.');
       this.cdr.markForCheck();
       return;
     }
-
+  
     const { firstName, age, lastName, gender } = this.mainForm.value;
-
+  
     const formData = {
       personalDetails: { firstName, age, lastName, gender },
       addressDetails: this.addressDetails,
     };
-
+  
     console.log('Form Submission Successful:', formData);
     this.router.navigate(['/successful']);
   }
