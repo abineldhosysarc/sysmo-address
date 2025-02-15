@@ -305,8 +305,14 @@ export class SysmoAddressComponent implements OnInit {
     return this.getStyleValue('checkboxTextAlign');
   }
 
+  getFormStyle(): { [klass: string]: any } {
+    return {
+      position: this.getStyleValue('formDivPosition') ,
+      left: this.getStyleValue('formDivLeft'),
+      top: this.getStyleValue('formDivTop'),
+    };
+  }
   
-
   getIonCardStyles() {
     return {
       width: this.getStyleValue('ionCardWidth'),

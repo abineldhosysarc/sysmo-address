@@ -1,5 +1,5 @@
 <form [formGroup]="addressForm">
-  <div formArrayName="addresses">
+  <div formArrayName="addresses" [ngStyle]="getFormStyle()">
     <div class="segment-container">
       <ion-segment [value]="selectedSegment" [color]="getSegmentColor()"  (ionChange)="segmentChanged($event)" scrollable="true">
         <ion-segment-button *ngFor="let addressType of addressTypes" [value]="addressType.id">
@@ -46,7 +46,7 @@
         <ion-card-content>
           <ng-container *ngFor="let addressField of addressFields">
             <ion-item  class="ion-touched">
-              <ion-label position="floating" [ngStyle]="{ color: getLabelColor() }">
+              <ion-label position="floating" [ngStyle]="{ color: getLabelColor(),'text-align': textAlignInput() }">
                 {{ addressField.label }}
                 <span *ngIf="addressField.required" class="required-marker">*</span>
               </ion-label>
@@ -57,7 +57,7 @@
                     <ion-radio-group [formControlName]="addressField.id" class="radio-group">
                       <ion-item *ngFor="let option of addressField.options" lines="none" class="radio-item">
                         <ion-radio slot="start" [value]="option"></ion-radio>
-                        <ion-label  class="ion-padding-start" [ngStyle]="{ color: getLabelColor() }" >{{ option }}</ion-label>
+                        <ion-label  class="ion-padding-start" [ngStyle]="{ color: getLabelColor(),'text-align': textAlignInput() }" >{{ option }}</ion-label>
                       </ion-item>
                     </ion-radio-group>
                   </ng-container>

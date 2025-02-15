@@ -71,10 +71,12 @@ export class HomePage {
     { name: 'fontSize', value:''},
     { name: 'textAlign', value:''},
     { name: 'textAlignInput', value :''},
-    {name : 'fontSizeErrorMessage', value:''},
-    {name : 'textAlignErrorMessage', value:''},
-    {name : 'checkboxTextAlign', value:''}
-
+    { name: 'fontSizeErrorMessage', value:''},
+    { name: 'textAlignErrorMessage', value:''},
+    { name: 'checkboxTextAlign', value:''},
+    { name: 'formDivPosition', value: '' },
+    { name: 'formDivLeft', value: '' },
+    { name: 'formDivTop', value: '' }
   ];
   addressTypes: AddressType[] = [
     { id: 'current', label: 'Current Address', required: true },
