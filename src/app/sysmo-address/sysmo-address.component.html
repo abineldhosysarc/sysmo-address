@@ -53,8 +53,8 @@
               <ng-container [ngSwitch]="addressField.type">
                 <ng-container *ngSwitchCase="'select'">
                   <ng-container *ngIf="addressField.options && addressField.options.length < 4; else selectDropdown">
-                    <ion-radio-group [formControlName]="addressField.id" class="radio-group">
-                      <ion-item *ngFor="let option of addressField.options" lines="none" class="radio-item">
+                    <ion-radio-group [formControlName]="addressField.id" class="radio-group" >
+                      <ion-item *ngFor="let option of addressField.options" lines="none" class="radio-item" [ngStyle]="getGlobalStyles()" >
                         <ion-radio slot="start" [value]="option"></ion-radio>
                         <ion-label class="ion-padding-start" [ngStyle]="getGlobalStyles()">{{ option }}</ion-label>
                       </ion-item>
