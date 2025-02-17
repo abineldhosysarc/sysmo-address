@@ -41,11 +41,12 @@
 
         <div class="addressSection">
           <sysmo-address
-            [addressTypes]="addressTypes"
-            [addressFields]="addressFields"
-            [errorMessages]="errorMessages"
-            [styleConfigs]="styleConfigs"
-            (addressChange)="handleAddressChange($event)">
+                [addressTypes]="addressTypes"
+                [addressFields]="addressFields"
+                [errorMessages]="errorMessages"
+                [styles]="{
+             }"
+           (addressChange)="handleAddressChange($event)">
           </sysmo-address>
         </div>
       </ion-list>

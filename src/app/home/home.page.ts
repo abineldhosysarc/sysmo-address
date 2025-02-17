@@ -57,27 +57,7 @@ export class HomePage {
     'Canada',
     'UK'
   ];
-  styleConfigs = [
-    { name: 'ionCardWidth', value: '400px' },
-    { name: 'labelColor', value: 'black' },
-    { name: 'checkboxPermanentlabel', value: 'black' },
-    { name: 'checkboxCurrentlabel', value: 'black' },
-    { name: 'checkedCurrent', value: 'danger' },
-    { name: 'checkedPermanent', value: 'danger' },
-    { name: 'segmentColor', value: 'danger' },
-    { name: 'cardBackground', value: '' },
-    { name: 'cardColor', value: '' },
-    { name: 'cardPadding', value: '' },
-    { name: 'fontSize', value:''},
-    { name: 'textAlign', value:''},
-    { name: 'textAlignInput', value :''},
-    { name: 'fontSizeErrorMessage', value:''},
-    { name: 'textAlignErrorMessage', value:''},
-    { name: 'checkboxTextAlign', value:''},
-    { name: 'formDivPosition', value: '' },
-    { name: 'formDivLeft', value: '' },
-    { name: 'formDivTop', value: '' }
-  ];
+ 
   addressTypes: AddressType[] = [
     { id: 'current', label: 'Current Address', required: true },
     { id: 'permanent', label: 'Permanent Address', required: true },

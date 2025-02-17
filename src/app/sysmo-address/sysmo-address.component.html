@@ -1,9 +1,9 @@
 <form [formGroup]="addressForm">
-  <div formArrayName="addresses" [ngStyle]="getFormStyle()">
+  <div formArrayName="addresses" >
     <div class="segment-container">
-      <ion-segment [value]="selectedSegment" [color]="getSegmentColor()"  (ionChange)="segmentChanged($event)" scrollable="true">
+      <ion-segment [value]="selectedSegment" color="danger" (ionChange)="segmentChanged($event)" scrollable="true">
         <ion-segment-button *ngFor="let addressType of addressTypes" [value]="addressType.id">
-          <ion-label [ngStyle]="{ color: getLabelColor() , 'font-size': getFontSize()}">{{ addressType.label }}</ion-label>
+          <ion-label [ngStyle]="getGlobalStyles()">{{ addressType.label }}</ion-label>
         </ion-segment-button>
       </ion-segment>
     </div>
@@ -11,42 +11,41 @@
     <div *ngFor="let addressControl of getAddresses().controls; let arrayIndex = index"
          [formGroupName]="arrayIndex"
          [hidden]="addressControl.get('type')?.value !== selectedSegment">
-         <ion-grid>
-         <ion-row>
+      <ion-grid>
+        <ion-row>
           <ion-col [size]="showCopyFromCurrent(arrayIndex) && showCopyFromPermanent(arrayIndex) ? '6' : '12'">
             <ion-item *ngIf="showCopyFromCurrent(arrayIndex)" lines="none" class="copy-address-item">
               <ion-checkbox
                 (ionChange)="copyAddress(arrayIndex, $event, 'current')"
                 [checked]="copyFromCurrentAddress[arrayIndex]"
                 [disabled]="copyFromPermanentAddress[arrayIndex]"
-                [color]="checkedCurrent()"
+                color="danger"
                 slot="start">
               </ion-checkbox>
-              <ion-label [ngStyle]="{ color: checkboxCurrent(), 'font-size': getFontSize(), 'text-align': checkboxTextAlign()  }">Same as Current Address</ion-label>
+              <ion-label [ngStyle]="getGlobalStyles()">Same as Current Address</ion-label>
             </ion-item>
           </ion-col>
-        
+          
           <ion-col *ngIf="showCopyFromPermanent(arrayIndex)" [size]="showCopyFromCurrent(arrayIndex) ? '6' : '12'">
             <ion-item lines="none" class="copy-address-item">
               <ion-checkbox
                 (ionChange)="copyAddress(arrayIndex, $event, 'permanent')"
                 [checked]="copyFromPermanentAddress[arrayIndex]"
                 [disabled]="copyFromCurrentAddress[arrayIndex]"
-                [color]="checkedPermanent()"
+                color="danger"
                 slot="start">
               </ion-checkbox>
-              <ion-label [ngStyle]="{ color: checkedPermanent(), 'font-size': getFontSize(),'text-align': checkboxTextAlign() }">Same as Permanent Address</ion-label>
+              <ion-label [ngStyle]="getGlobalStyles()">Same as Permanent Address</ion-label>
             </ion-item>
           </ion-col>
         </ion-row>
       </ion-grid>
-        
 
-      <ion-card [class.read-only]="isReadOnly(arrayIndex)" [ngStyle]="getIonCardStyles()">
+      <ion-card [class.read-only]="isReadOnly(arrayIndex)" >
         <ion-card-content>
           <ng-container *ngFor="let addressField of addressFields">
-            <ion-item  class="ion-touched">
-              <ion-label position="floating" [ngStyle]="{ color: getLabelColor(),'text-align': textAlignInput() }">
+            <ion-item class="ion-touched">
+              <ion-label position="floating" [ngStyle]="getGlobalStyles()">
                 {{ addressField.label }}
                 <span *ngIf="addressField.required" class="required-marker">*</span>
               </ion-label>
@@ -57,12 +56,12 @@
                     <ion-radio-group [formControlName]="addressField.id" class="radio-group">
                       <ion-item *ngFor="let option of addressField.options" lines="none" class="radio-item">
                         <ion-radio slot="start" [value]="option"></ion-radio>
-                        <ion-label  class="ion-padding-start" [ngStyle]="{ color: getLabelColor(),'text-align': textAlignInput() }" >{{ option }}</ion-label>
+                        <ion-label class="ion-padding-start" [ngStyle]="getGlobalStyles()">{{ option }}</ion-label>
                       </ion-item>
                     </ion-radio-group>
                   </ng-container>
                   <ng-template #selectDropdown>
-                    <ion-select [formControlName]="addressField.id" class="select-field">
+                    <ion-select [formControlName]="addressField.id" class="select-field" [ngStyle]="getGlobalStyles()">
                       <ion-select-option *ngFor="let option of addressField.options" [value]="option">
                         {{option}}
                       </ion-select-option>
@@ -73,13 +72,14 @@
                   [formControlName]="addressField.id"
                   [type]="addressField.type"
                   [attr.maxLength]="addressField.maxLength"
-                  [ngStyle]="{ 'text-align': textAlignInput(),  'font-size': getFontSize() }"
+                  [ngStyle]="getGlobalStyles()"
                   (keypress)="addressField.id === 'pinCode' ? restrictPinCodeInput($event) : true">
                 </ion-input>
               </ng-container>
             </ion-item>
-            <ion-text color="danger"  [ngStyle]="{ 'text-align': textAlignErrorMessage(),  'font-size': fontSizeErrorMessage() }"
-              *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.invalid">
+            <ion-text color="danger" [ngStyle]="getGlobalStyles()"
+              *ngIf="getAddressGroup(arrayIndex).get(addressField.id)?.invalid && 
+                     getAddressGroup(arrayIndex).get(addressField.id)?.touched">
               <p>{{ getErrorMessage(getAddressGroup(arrayIndex), addressField) }}</p>
             </ion-text>
           </ng-container>

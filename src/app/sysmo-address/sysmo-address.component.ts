@@ -18,15 +18,9 @@ interface AddressField {
   maxLength?: number;
   options?: string[];
 }
-interface StyleConfig {
-  name: string;
-  value: string;
-}
-interface ErrorMessages {
-  required?: string;
-  maxlength?: string;
-  pattern?: string;
+interface GlobalStyles {
   [key: string]: string | undefined;
+
 }
 
 @Component({
@@ -40,14 +34,30 @@ interface ErrorMessages {
 export class SysmoAddressComponent implements OnInit {
   @Input() addressTypes: AddressType[] = [];
   @Input() addressFields: AddressField[] = [];
-  @Input() errorMessages: { [fieldId: string]: ErrorMessages } = {};
-  @Input() styleConfigs: StyleConfig[] = [];
+  @Input() errorMessages: { [fieldId: string]: { [key: string]: string } } = {};
+  @Input() set styles(value: { [key: string]: string } | undefined) {
+    if (value) {
+      // Convert kebab-case to camelCase and store
+      this._styles = Object.entries(value).reduce((acc, [key, val]) => {
+        const camelKey = key.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+        acc[camelKey] = val;
+        return acc;
+      }, {} as GlobalStyles);
+    } else {
+      this._styles = {};
+    }
+  }
+  get styles(): GlobalStyles {
+    return this._styles;
+  }
+  
   @Output() addressChange = new EventEmitter<any>();
   addressForm: FormGroup;
   selectedSegment: string;
   readOnlyStates: boolean[] = [];
   copyFromCurrentAddress: boolean[] = [];
   copyFromPermanentAddress: boolean[] = [];
+  private _styles: GlobalStyles = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -71,6 +81,9 @@ export class SysmoAddressComponent implements OnInit {
         this.addressChange.emit(this.formatAddressData(value));
       }
     });
+  }
+  getGlobalStyles() {
+    return this._styles;
   }
 
   segmentChanged(event: CustomEvent) {
@@ -148,11 +161,11 @@ export class SysmoAddressComponent implements OnInit {
         Object.keys(copyValues).forEach(key => {
           const control = currentGroup.get(key);
           if (control) {
-          if (isChecked) {
-            control.disable();
-          } else {
-            control.enable();
-          }
+            if (isChecked) {
+              control.disable();
+            } else {
+              control.enable();
+            }
           }
         });
 
@@ -224,20 +237,7 @@ export class SysmoAddressComponent implements OnInit {
     }
     return true;
   }
-  isSelectField(field: AddressField): boolean {
-    return field.type === 'select';
-  }
-  resetForm() {
-    const addressesArray = this.addressForm.get('addresses') as FormArray;
-    addressesArray.clear();
-    this.initializeAddresses();
-    this.selectedSegment = this.addressTypes[0]?.id || '';
-    this.readOnlyStates = new Array(this.addressTypes.length).fill(false);
-    this.copyFromCurrentAddress = new Array(this.addressTypes.length).fill(false);
-    this.copyFromPermanentAddress = new Array(this.addressTypes.length).fill(false);
-    this.addressChange.emit(null);
-    this.cdr.markForCheck();
-  }
+
   getErrorMessage(formGroup: FormGroup, field: AddressField): string {
     const control = formGroup.get(field.id);
     if (!control?.errors || !control.touched) return '';
@@ -252,74 +252,16 @@ export class SysmoAddressComponent implements OnInit {
     return '';
   }
 
-  getStyleValue(name: string): string {
-    const config = this.styleConfigs.find(style => style.name === name);
-    return config ? config.value : '';
-  }
-  
-  getLabelColor(): string {
-    return this.getStyleValue('labelColor');
-  }
-  
-  getSegmentColor(): string {
-    return this.getStyleValue('segmentColor');
-  }
-
-  checkboxCurrent(): string {
-    return this.getStyleValue('checkboxPermanentlabel');
-  }
-
-  checkboxPermanent(): string {
-    return this.getStyleValue('checkboxPermanentlabel');
-  }
-
-  checkedPermanent(): string {
-    return this.getStyleValue('checkedPermanent');
-  }
-
-  checkedCurrent(): string {
-    return this.getStyleValue('checkedCurrent');
-  }
-
-  getFontSize(): string {
-    return this.getStyleValue('fontSize');
-  }
-
-  textAlign(): string {
-    return this.getStyleValue('textAlign');
-  }
-
-  textAlignInput(): string {
-    return this.getStyleValue('textAlignInput');
-  }
-
-  textAlignErrorMessage(): string {
-    return this.getStyleValue('textAlignErrorMessage');
-  }
-
-  fontSizeErrorMessage(): string {
-    return this.getStyleValue('fontSizeErrorMessage');
-  }
-
-  checkboxTextAlign(): string {
-    return this.getStyleValue('checkboxTextAlign');
-  }
-
-  getFormStyle(): { [klass: string]: any } {
-    return {
-      position: this.getStyleValue('formDivPosition') ,
-      left: this.getStyleValue('formDivLeft'),
-      top: this.getStyleValue('formDivTop'),
-    };
-  }
-  
-  getIonCardStyles() {
-    return {
-      width: this.getStyleValue('ionCardWidth'),
-      padding: this.getStyleValue('cardPadding'),
-      '--background': this.getStyleValue('cardBackground'),
-      '--color': this.getStyleValue('cardColor')
-    };
+  resetForm() {
+    const addressesArray = this.addressForm.get('addresses') as FormArray;
+    addressesArray.clear();
+    this.initializeAddresses();
+    this.selectedSegment = this.addressTypes[0]?.id || '';
+    this.readOnlyStates = new Array(this.addressTypes.length).fill(false);
+    this.copyFromCurrentAddress = new Array(this.addressTypes.length).fill(false);
+    this.copyFromPermanentAddress = new Array(this.addressTypes.length).fill(false);
+    this.addressChange.emit(null);
+    this.cdr.markForCheck();
   }
 
   markAllFieldsAsTouched() {
