@@ -1,0 +1,40 @@
+.segment-container {
+    margin: 16px 0;
+    padding: 0 8px;
+  }
+  
+  .copy-address-item {
+    margin: 12px 8px;
+    --background: transparent;
+    --border-color: transparent;
+  }
+  
+  ::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+  }
+  
+  .radio-group {
+    width: 100%;
+    margin: 1rem 0;
+  
+    .radio-item {
+      --min-height: 50px;
+      margin: 0.5rem 0;
+    }
+  }
+  
+  .read-only {
+    ion-item {
+      opacity: 0.8;
+      
+      ion-input, ion-select, ion-label {
+        opacity: 0.8;
+        pointer-events: none;
+      }
+    }
+  }
+  ion-card {
+    height: auto !important;
+  }
+  

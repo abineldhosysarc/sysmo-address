@@ -131,6 +131,72 @@
           }
         }
       }
+    },
+    "sysmoui-address": {
+      "projectType": "library",
+      "root": "projects/sysmoui-address",
+      "sourceRoot": "projects/sysmoui-address/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/sysmoui-address/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/sysmoui-address/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/sysmoui-address/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/sysmoui-address/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "sysmo-ui": {
+      "projectType": "library",
+      "root": "projects/sysmo-ui",
+      "sourceRoot": "projects/sysmo-ui/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/sysmo-ui/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/sysmo-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/sysmo-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/sysmo-ui/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

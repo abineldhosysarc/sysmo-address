@@ -1,0 +1,9 @@
+<div>
+  <ion-chip *ngFor="let user of users; let nIndex = index" [disabled]="shouldDisableGender(nIndex)" [ngStyle]="genderStyleProps">
+    <!-- Icons only apply for Male and Female -->
+    <ion-avatar *ngIf="user.icon !== '' && user.icon !== undefined">
+            <img alt="gender icon" [src]="getGenderIcon(user.icon)" />
+    </ion-avatar>
+    <ion-label>{{ getGenderLabel(user.gender) }}</ion-label>
+  </ion-chip>   
+</div>

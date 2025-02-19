@@ -1,0 +1,11 @@
+
+<div class="ion-padding-top">
+    <ion-input type="date" fill="outline" 
+      [min]="minDate" [max]="maxDate" [value]="dateOfBirth"
+      (ionChange)="selectedDateOfBirth($event)"
+      (ionBlur)="handleBlur()"
+      [ngClass]="customClassInput"
+     ></ion-input>
+    <p *ngIf="dateOfBirth" [ngStyle]="customStyleText">{{ageText}} {{dateOfBirth | ageCalculator }}</p>
+   </div>
+  

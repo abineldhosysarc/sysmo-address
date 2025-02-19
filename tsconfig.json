@@ -18,6 +18,14 @@
     "importHelpers": true,
     "target": "es2022",
     "module": "es2020",
+    "paths": {
+      "sysmo-ui": [
+        "./dist/sysmo-ui"
+      ],
+      "sysmoui-address": [
+        "./dist/sysmoui-address"
+      ]
+    },
     "lib": [
       "es2018", 
       "dom"

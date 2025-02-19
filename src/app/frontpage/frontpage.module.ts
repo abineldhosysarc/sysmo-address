@@ -6,14 +6,15 @@ import { IonicModule } from '@ionic/angular';
 
 import { FrontpagePageRoutingModule } from './frontpage-routing.module';
 
-import { FrontpagePage } from './frontpage.page';
+import { SysmoAddress, SysmoDob, SysmoGender, } from 'sysmo-ui';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FrontpagePageRoutingModule
+    FrontpagePageRoutingModule,
+    SysmoAddress,SysmoGender,SysmoDob
   ],
 })
 export class FrontpagePageModule {}

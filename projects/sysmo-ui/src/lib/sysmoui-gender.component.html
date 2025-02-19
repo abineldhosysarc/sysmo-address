@@ -1,0 +1,17 @@
+<div class="title-selector">
+  <select
+    id="titleSelect"
+    (blur)="onTouched()"
+    [ngStyle]="selectStyleProps"
+    (change)="onTitleChanged($event)"
+  >
+    <option *ngFor="let title of titles" [value]="title" class="title-cus" [ngStyle]="titleStyleProps" >{{ title | capitalizeFirstLetter }}</option>
+  </select>
+  <!-- Gender Component   -->
+  <sysmo-gender 
+  [users] = "users"
+  [gender]="gender"
+  [genderStyleProps] = "genderStyleProps"
+   />
+</div>
+
